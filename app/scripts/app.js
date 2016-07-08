@@ -36,7 +36,7 @@ angular
       })
       .state('panel', {
         abstract: true,
-        templateUrl: 'scripts/panel/index.html',
+        templateUrl: 'scripts/panel/panel.html',
         controller: 'PanelCtrl as panel',
         resolve:{
           auth: function ($state, Users, Auth) {

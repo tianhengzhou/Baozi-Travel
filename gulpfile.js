@@ -4,7 +4,6 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var openURL = require('open');
-var ngAnnotate = require('gulp-ng-annotate');
 var lazypipe = require('lazypipe');
 var rimraf = require('rimraf');
 var wiredep = require('wiredep').stream;
@@ -66,12 +65,15 @@ gulp.task('styles', function () {
 });
 gulp.task('scripts', function () {
   return gulp.src(paths.scripts)
-    .pipe(ngAnnotate())
     .pipe(gulp.dest('.tmp/scripts'))
 });
 gulp.task('scripts:html', function () {
   return gulp.src(paths.html)
     .pipe(gulp.dest('.tmp/scripts'))
+});
+gulp.task('scripts_dist:html', function () {
+  return gulp.src(paths.html)
+      .pipe(gulp.dest('dist/scripts'))
 });
 gulp.task('lint:scripts', function () {
   return gulp.src(paths.scripts)
@@ -121,7 +123,6 @@ gulp.task('watch', function () {
 
   $.watch(paths.scripts)
     .pipe($.plumber())
-    .pipe(ngAnnotate())
     .pipe(lintScripts())
     .pipe(gulp.dest('.tmp/scripts'))
     .pipe($.connect.reload());
@@ -216,10 +217,10 @@ gulp.task('clean:dist', function (cb) {
   rimraf('./dist', cb);
 });
 
-gulp.task('client:build', ['html', 'styles', 'scripts', 'scripts:html'], function () {
+gulp.task('client:build', ['html', 'styles', 'scripts', 'scripts:html', 'scripts_dist:html'], function () {
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
-
+  var htmlFilter = $.filter('**/*.html');
   return gulp.src(paths.views.main)
     .pipe($.useref({searchPath: [yeoman.app, '.tmp']}))
     .pipe(jsFilter)
@@ -231,6 +232,8 @@ gulp.task('client:build', ['html', 'styles', 'scripts', 'scripts:html'], functio
     .pipe(cssFilter.restore())
     .pipe($.rev())
     .pipe($.revReplace())
+    .pipe(htmlFilter)
+    .pipe(htmlFilter.restore())
     .pipe(gulp.dest(yeoman.dist));
 });
 
