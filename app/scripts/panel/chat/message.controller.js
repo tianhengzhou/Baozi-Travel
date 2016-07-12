@@ -4,13 +4,14 @@
 "use strict";
 angular.module('baoziApp')
   .controller('MessageCtrl', function ($mdMedia, profile, channelName,
-                                       messages) {
+                                       messages, isChannel) {
     var messageCtrl = this;
     messageCtrl.$mdMedia = $mdMedia;
     messageCtrl.messages = messages;
     messageCtrl.channelName = channelName;
     messageCtrl.message = '';
     messageCtrl.profile = profile;
+    messageCtrl.isChannel = isChannel;
     messageCtrl.sendMessage = function () {
       if(messageCtrl.message.length > 0){
         messageCtrl.messages.$add({

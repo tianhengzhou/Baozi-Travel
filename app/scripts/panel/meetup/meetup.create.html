@@ -1,29 +1,56 @@
-<div layout="column" class="md-inline-form" layout-padding="">
-    <form id="meetupForm">
-        <md-input-container class="md-block">
-            <label for="meetupName">Meetup Name</label>
-            <input id="meetupName" ng-model="meetup.name"
-                   placeholder="Meetup Group Name" md-maxlength="30">
-            <div ng-messages="meetup.name.$error">
-                <div ng-message="required">The name is required.</div>
-                <div ng-message="md-maxlength">The name has to be less
-                    than 30 characters long.</div>
+<md-dialog aria-label="Create Meetup" ng-cloak="">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Create Meetup</h2>
+                <span flex=""></span>
+                <md-button class="md-icon-button"
+                           ng-click="cancel()">
+                    <i class="material-icons" aria-label="Close">&#xE5C9;</i>
+                </md-button>
             </div>
-        </md-input-container>
-        <md-input-container class="md-block">
-            <label for="meetupHost">Hoster</label>
-            <input id="meetupHost" ng-model="meetup.host">
-            <div ng-messages="meetup.host.$error">
-                <div ng-message="required">The host name is required.</div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout="column" class="md-inline-form md-dialog-content"
+                 layout-padding="">
+                    <md-input-container class="md-block">
+                        <label for="meetupName">Meetup Name</label>
+                        <input id="meetupName" ng-model="meetupCtrl.name"
+                               placeholder="Meetup Group Name" md-maxlength="30">
+                        <div ng-messages="meetupCtrl.name.$error">
+                            <div ng-message="required">The name is required.</div>
+                            <div ng-message="md-maxlength">The name has to be less
+                                than 30 characters long.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label for="meetupHost">Hoster</label>
+                        <input id="meetupHost" ng-model="meetupCtrl.host">
+                        <div ng-messages="meetupCtrl.host.$error">
+                            <div ng-message="required">The host name is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label for="meetupLocation">Location</label>
+                        <input id="meetupLocation" ng-model="meetupCtrl.location"
+                               googleplace
+                               placeholder="Enter a Location">
+                        <div ng-messages="meetupCtrl.location.$error">
+                            <div ng-message="required">The location is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label for="meetupStart">Start Date Time</label>
+                        <input id="meetupStart"
+                               ng-model="meetupCtrl.startDateTime"
+                               type="date">
+                        <div ng-messages="meetupCtrl.startDateTime.$error">
+                            <div ng-message="required">The start date time is
+                                required.
+                            </div>
+                        </div>
+                    </md-input-container>
             </div>
-        </md-input-container>
-        <md-input-container class="md-block">
-            <label for="meetupLocation">Location</label>
-            <input id="meetupLocation" ng-model="meetup.location" googleplace
-                   placeholder="Enter a Location">
-            <div ng-messages="meetup.location.$error">
-                <div ng-message="required">The location is required.</div>
-            </div>
-        </md-input-container>
+        </md-dialog-content>
     </form>
-</div>
+</md-dialog>

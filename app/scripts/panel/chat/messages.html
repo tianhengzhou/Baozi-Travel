@@ -10,6 +10,10 @@
          class="md-avatar" alt="{{ chatCtrl.getDisplayName(message.uid) }}"
          ng-if="messageCtrl.profile.$id !== message.uid" />
     <div class="md-list-item-text">
+        <p ng-if="messageCtrl.profile.$id !== message.uid &&
+                 messageCtrl.isChannel">
+          {{ chatCtrl.getDisplayName(message.uid) }}
+        </p>
         <p class="bubble"
          ng-class="{me: messageCtrl.profile.$id === message.uid,
           you: messageCtrl.profile.$id !== message.uid}">
@@ -21,10 +25,11 @@
        ng-if="messageCtrl.profile.$id === message.uid" />
   </md-list-item>
   </md-list>
-<form class="message-form" ng-submit="messageCtrl.sendMessage()" layout="row">
+<form class="message-form" ng-submit="messageCtrl.sendMessage()" layout="row"
+  layout-margin="">
   <md-input-container flex="80">
     <input type="text" class="form-control" ng-model="messageCtrl.message"
-           placeholder="Type a message..."/>
+           placeholder="Type a message...">
   </md-input-container>
   <md-button class="md-fab" type="submit">
     <i class="material-icons">&#xE163;</i>

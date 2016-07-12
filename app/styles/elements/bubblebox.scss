@@ -1,0 +1,48 @@
+@import "../color-definitions";
+.bubble{
+  margin: 0 20px 0 5px !important;
+  background-color: #F2F2F2;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 10px 18px;
+  position: relative;
+  vertical-align: top;
+}
+
+.you {
+  float: left;
+  margin: 5px 45px 5px 20px;
+}
+
+.you::before {
+  box-shadow:  rgba( 178, 178, 178, .4 );
+  display: inline-block;
+  content: '';
+  width: 0;
+  height: 0;
+  top: 0;
+  border-style: solid;
+  border-width: 0 15px 15px 0;
+  border-color: transparent #F2F2F2 transparent transparent;
+  position: absolute;
+  left: -10px;
+}
+
+.me {
+  float: right;
+  background-color: $palette-blue-100;
+  margin: 5px 20px 5px 45px;
+}
+
+.me::before {
+  display: inline-block;
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 15px 15px 0 0;
+  position: absolute;
+  top: 0;
+  right: -10px;
+  border-color: $palette-blue-100 transparent transparent transparent;
+}

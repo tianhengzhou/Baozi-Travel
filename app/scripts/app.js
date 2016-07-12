@@ -12,6 +12,7 @@ angular
   .module('baoziApp', [
     'ngMaterial',
     'ngMessages',
+    'ngSanitize',
     'angular-md5',
     'firebase',
     'ui.router'
@@ -89,6 +90,9 @@ angular
           },
           channelName: function ($stateParams, channels) {
             return '#' + channels.$getRecord($stateParams.channelId).name;
+          },
+          isChannel: function () {
+            return true;
           }
         }
       })
@@ -104,6 +108,9 @@ angular
             return Users.all.$loaded().then(function () {
               return '@' + Users.getDisplayName($stateParams.uid);
             });
+          },
+          isChannel: function () {
+            return false;
           }
         }
       })
