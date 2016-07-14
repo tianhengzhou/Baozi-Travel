@@ -43,7 +43,7 @@
                         <label for="meetupStart">Start Date Time</label>
                         <input id="meetupStart"
                                ng-model="meetupCtrl.startDateTime"
-                               type="date">
+                               type="datetime-local">
                         <div ng-messages="meetupCtrl.startDateTime.$error">
                             <div ng-message="required">The start date time is
                                 required.

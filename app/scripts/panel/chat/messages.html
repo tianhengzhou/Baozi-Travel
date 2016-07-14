@@ -2,10 +2,8 @@
 <md-list
         ng-class="{message_lg: $mdMedia('gt-sm'),
          message_sm: !$mdMedia('gt-sm')}" scroll-bottom="messageCtrl.messages">
-  <md-list-item class="md-2-line" ng-repeat="message in messageCtrl.messages">
-    <span ng-if="messageCtrl.profile.$id == message.uid" flex-gt-sm="50"
-          flex="20"
-    ></span>
+  <md-list-item class="md-2-line" ng-repeat="message in messageCtrl.messages" layout-margin="">
+    <span ng-if="messageCtrl.profile.$id == message.uid && !$mdMedia('gt-sm')" flex-gt-sm="50"></span>
     <img ng-src="{{ chatCtrl.getGravatar(message.uid) }}"
          class="md-avatar" alt="{{ chatCtrl.getDisplayName(message.uid) }}"
          ng-if="messageCtrl.profile.$id !== message.uid" />
