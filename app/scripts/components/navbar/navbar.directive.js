@@ -6,7 +6,7 @@
 angular.module('baoziApp')
   .directive('navBar', function () {
     return {
-      templateUrl: 'scripts/components/navbar/navbar.html',
+      templateUrl: 'templates/components/navbar/navbar.html',
       restrict: 'E',
       controller: 'NavbarController',
       controllerAs: 'navbar',

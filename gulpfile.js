@@ -17,7 +17,7 @@ var yeoman = {
 var paths = {
   scripts: [yeoman.app + '/scripts/**/*.js'],
   styles: [yeoman.app + '/styles/**/*.scss'],
-  template: [yeoman.app + '/template/*tpl.html'],
+  templates: [yeoman.app + '/templates/**/*.html'],
   html: [yeoman.app + '/scripts/**/*.html'],
   mainStyle: [yeoman.app + '/styles/main.scss'],
   baseStyle: [yeoman.app + '/styles/*.scss'],
@@ -35,7 +35,7 @@ var paths = {
   karma: 'karma.conf.js',
   views: {
     main: yeoman.app + '/index.html',
-    files: [yeoman.app + '/views/**/*.html']
+    files: [yeoman.app + '/templates/**/*.html']
   }
 };
 
@@ -113,7 +113,12 @@ gulp.task('watch', function () {
       .pipe(styles())
       .pipe($.connect.reload());
   });
+
   $.watch(paths.views.files)
+    .pipe($.plumber())
+    .pipe($.connect.reload());
+
+  $.watch(paths.templates)
     .pipe($.plumber())
     .pipe($.connect.reload());
 
@@ -131,7 +136,7 @@ gulp.task('watch', function () {
     .pipe($.plumber())
     .pipe(lintScripts());
 
-  gulp.watch(['bower.json', paths.html] , ['bower', 'inject']);
+  gulp.watch(['bower.json', paths.templates] , ['bower', 'inject']);
 });
 
 gulp.task('serve', function (cb) {

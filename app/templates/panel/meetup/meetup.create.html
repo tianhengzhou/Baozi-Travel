@@ -40,10 +40,27 @@
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
-                        <label for="meetupStart">Start Date Time</label>
+                        <label for="meetupStart">
+                            Start Date Time
+                        </label>
                         <input id="meetupStart"
                                ng-model="meetupCtrl.startDateTime"
-                               type="datetime-local">
+                               type="datetime-local"
+                               placeholder="">
+                        <div ng-messages="meetupCtrl.startDateTime.$error">
+                            <div ng-message="required">The start date time is
+                                required.
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label for="meetupEnd">
+                            Start Date Time
+                        </label>
+                        <input id="meetupEnd"
+                               ng-model="meetupCtrl.EndDateTime"
+                               type="datetime-local"
+                               placeholder="">
                         <div ng-messages="meetupCtrl.startDateTime.$error">
                             <div ng-message="required">The start date time is
                                 required.

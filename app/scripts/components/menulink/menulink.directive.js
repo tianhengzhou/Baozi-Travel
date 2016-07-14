@@ -41,7 +41,7 @@ angular.module('baoziApp')
       scope:{
         section: '='
       },
-      templateUrl: 'scripts/components/menulink/menulink.html',
+      templateUrl: 'templates/components/menulink/menulink.html',
       restrict: 'E',
       controller: 'MenulinkController',
       controllerAs: 'menulink',

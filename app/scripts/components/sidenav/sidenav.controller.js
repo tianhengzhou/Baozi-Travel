@@ -30,6 +30,9 @@ angular
           })
         });
       };
+      $scope.close = function () {
+        $mdSidenav('left').close()
+      };
     $scope.toggleLeft = buildDelayedToggler('left');
     $scope.toggleRight = buildToggler('right');
     $scope.isOpenRight = function(){

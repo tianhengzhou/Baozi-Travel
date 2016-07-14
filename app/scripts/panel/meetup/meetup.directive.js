@@ -7,7 +7,7 @@ angular.module('baoziApp')
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: 'scripts/panel/meetup/meetup.create.html'
+      templateUrl: 'templates/panel/meetup/meetup.create.html'
     };
   })
   .directive('googleplace', function () {

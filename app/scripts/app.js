@@ -23,7 +23,7 @@ angular
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'scripts/weather/weather.html',
+        templateUrl: 'templates/weather/weather.html',
         controller: 'WeatherCtrl as weather',
         resolve: {
           requireNoAuth: function ($state, Auth) {
@@ -37,7 +37,7 @@ angular
       })
       .state('panel', {
         abstract: true,
-        templateUrl: 'scripts/panel/panel.html',
+        templateUrl: 'templates/panel/panel.html',
         controller: 'PanelCtrl as panel',
         resolve:{
           auth: function ($state, Users, Auth) {
@@ -54,7 +54,7 @@ angular
       })
       .state('panel.chat', {
         url: '/chat',
-        templateUrl: 'scripts/panel/chat/chat.html',
+        templateUrl: 'templates/panel/chat/chat.html',
         controller: 'ChatCtrl as chatCtrl',
         resolve:{
           channels: function (Channels) {
@@ -77,12 +77,12 @@ angular
       })
       .state('panel.chat.create', {
         url: '/create',
-        templateUrl: 'scripts/panel/chat/create.html',
+        templateUrl: 'templates/panel/chat/create.html',
         controller: 'ChatCtrl as chatCtrl'
       })
       .state('panel.chat.messages', {
         url: '/{channelId}/messages',
-        templateUrl: 'scripts/panel/chat/messages.html',
+        templateUrl: 'templates/panel/chat/messages.html',
         controller: 'MessageCtrl as messageCtrl',
         resolve: {
           messages: function ($stateParams, Messages) {
@@ -98,7 +98,7 @@ angular
       })
       .state('panel.chat.direct', {
         url: '/{uid}/messages/direct',
-        templateUrl: 'scripts/panel/chat/messages.html',
+        templateUrl: 'templates/panel/chat/messages.html',
         controller: 'MessageCtrl as messageCtrl',
         resolve: {
           messages: function ($stateParams, Messages, profile) {
@@ -116,7 +116,7 @@ angular
       })
       .state('panel.map', {
         url: '/map',
-        templateUrl: 'scripts/panel/map/map.html',
+        templateUrl: 'templates/panel/map/map.html',
         controller: 'MapCtrl as mapCtrl',
         resolve:{
           profile: function ($state, Auth, Users) {
@@ -136,7 +136,7 @@ angular
       })
       .state('panel.meetup', {
         url: '/meetup',
-        templateUrl: 'scripts/panel/meetup/meetup.html',
+        templateUrl: 'templates/panel/meetup/meetup.html',
         controller: 'MeetupCtrl as meetupCtrl',
         resolve:{
           profile: function ($state, Auth, Users) {
@@ -156,14 +156,14 @@ angular
       })
       .state('panel.blog', {
         url: '/blog',
-        templateUrl: 'scripts/panel/chat/blog.html',
+        templateUrl: 'templates/panel/chat/blog.html',
         controller: 'PanelCtrl as panel',
         parent: 'panel'
       })
       .state('panel.profile', {
         url: '/profile',
         controller: 'ProfileCtrl as profileCtrl',
-        templateUrl: 'scripts/panel/profile/profile.html',
+        templateUrl: 'templates/panel/profile/profile.html',
         parent: 'panel',
         resolve: {
           auth: function ($state, Users, Auth) {

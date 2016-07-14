@@ -6,7 +6,7 @@
 angular.module('baoziApp')
   .directive('userAuth', function () {
     return {
-      templateUrl: 'scripts/components/auth/userauth.html',
+      templateUrl: 'templates/components/auth/userauth.html',
       restrict: 'E',
       controller: 'AuthCtrl',
       controllerAs: 'authCtrl',

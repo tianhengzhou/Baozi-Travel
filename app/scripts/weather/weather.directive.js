@@ -110,7 +110,7 @@ angular.module('baoziApp')
       },
       restrict: 'E',
       replace: true,
-      templateUrl: 'scripts/weather/weatherForecast.tpl.html',
+      templateUrl: 'templates/weather/weatherForecast.tpl.html',
       link: function (scope) {
         scope.units = scope.units || 'metric';
       }
@@ -124,7 +124,7 @@ angular.module('baoziApp')
       },
       restrict: 'E',
       replace: 'true',
-      templateUrl: 'scripts/weather/weatherDisplayCard.tpl.html',
+      templateUrl: 'templates/weather/weatherDisplayCard.tpl.html',
       link: function (scope) {
         scope.findIndex = function (weatherObj) {
           return scope.forecast.list.indexOf(weatherObj);
@@ -155,7 +155,7 @@ angular.module('baoziApp')
   })
   .directive('weather', function () {
     return {
-      templateUrl: 'scripts/weather/weather.html',
+      templateUrl: 'templates/weather/weather.html',
       restrict: 'E',
       controller: 'WeatherController',
       controllerAs: 'weather',

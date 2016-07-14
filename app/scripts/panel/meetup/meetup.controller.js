@@ -29,7 +29,7 @@ angular.module('baoziApp')
       var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
       $mdDialog.show({
         controller: DialogCtrl,
-        templateUrl: 'scripts/panel/meetup/meetup.create.html',
+        templateUrl: 'templates/panel/meetup/meetup.create.html',
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose: true,

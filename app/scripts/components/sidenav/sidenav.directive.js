@@ -6,7 +6,7 @@
 angular.module('baoziApp')
   .directive('sideNav', function () {
     return {
-      templateUrl: 'scripts/components/sidenav/sidenav.html',
+      templateUrl: 'templates/components/sidenav/sidenav.html',
       restrict: 'E',
       controller: 'SidenavController',
       controllerAs: 'sidenav',
