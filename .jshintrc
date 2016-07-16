@@ -12,9 +12,10 @@
   "unused": true,
   "globals": {
     "angular": false,
-    "Firebase": false,
+    "firebase": false,
     "moment": false,
     "jquery": false,
-    "google": false
+    "google": false,
+    "$": false
   }
 }

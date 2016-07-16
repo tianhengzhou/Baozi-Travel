@@ -17,7 +17,7 @@ angular.module('baoziApp')
         messageCtrl.messages.$add({
           uid: profile.$id,
           body: messageCtrl.message,
-          timestamp: Firebase.ServerValue.TIMESTAMP
+          timestamp: firebase.database.ServerValue.TIMESTAMP
         }).then(function () {
           messageCtrl.message = '';
         });

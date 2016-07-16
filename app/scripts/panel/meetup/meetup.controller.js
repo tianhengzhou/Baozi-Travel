@@ -7,6 +7,11 @@ angular.module('baoziApp')
                                      Meetups){
     var meetupCtrl = this;
     meetupCtrl.profile = profile;
+    var DialogCtrl = function ($scope, $mdDialog) {
+      $scope.cancel = function () {
+        $mdDialog.cancel();
+      };
+    };
     var createMeetupJson = function () {
       var description = (typeof meetupCtrl.description === 'undefined') ?
         '' : meetupCtrl.description;
@@ -34,11 +39,6 @@ angular.module('baoziApp')
         targetEvent: event,
         clickOutsideToClose: true,
         fullscreen: useFullScreen
-      })
+      });
     };
   });
-  function DialogCtrl($scope, $mdDialog) {
-    $scope.cancel = function () {
-      $mdDialog.cancel();
-    }
-  }

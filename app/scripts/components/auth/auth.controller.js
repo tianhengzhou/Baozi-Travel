@@ -5,16 +5,19 @@
 
 angular.module('baoziApp')
   .controller('AuthCtrl', function ($state, Auth, $firebaseAuth,
-                                    $firebaseObject, FirebaseUrl, md5) {
+                                    $firebaseObject, md5) {
       var authCtrl = this;
-      var ref = new Firebase(FirebaseUrl);
+      var ref =firebase.database().ref();
       authCtrl.user = {
         email: '',
         password: '',
         displayName: ''
       };
       authCtrl.login = function () {
-        Auth.$authWithPassword(authCtrl.user).then(function (auth) {
+        Auth.$signInWithEmailAndPassword(authCtrl.user.email,
+          authCtrl.user.password).then(function (firebaseUser) {
+          console.log(authCtrl.user);
+          console.log(firebaseUser.uid); 
           $state.go('panel.profile');
 
         }, function (err) {
@@ -22,7 +25,8 @@ angular.module('baoziApp')
         });
       };
       authCtrl.register = function () {
-        Auth.$createUser(authCtrl.user).then(function (user) {
+        Auth.$createUserWithEmailAndPassword(authCtrl.user.email,
+          authCtrl.user.password).then(function (user) {
           ref.child('users').child(user.uid).set({
             displayName: authCtrl.user.email,
             emailHash: md5.createHash(authCtrl.user.email)

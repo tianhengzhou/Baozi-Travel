@@ -3,8 +3,6 @@
  */
 "use strict";
 angular.module('baoziApp')
-  .factory('Auth', function ($firebaseAuth, $firebaseObject,  FirebaseUrl) {
-    var ref = new Firebase(FirebaseUrl);
-    var auth = $firebaseAuth(ref);
-    return auth;
+  .factory('Auth', function ($firebaseAuth) {
+    return $firebaseAuth();
   });

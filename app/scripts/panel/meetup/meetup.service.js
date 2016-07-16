@@ -3,8 +3,8 @@
  */
 "use strict";
 angular.module('baoziApp')
-  .factory('Meetups', function ($firebaseArray, FirebaseUrl) {
-    var ref = new Firebase(FirebaseUrl+'meetups');
+  .factory('Meetups', function ($firebaseArray) {
+    var ref = firebase.database().ref().child('meetups');
     var meetups = $firebaseArray(ref);
     return meetups;
   });

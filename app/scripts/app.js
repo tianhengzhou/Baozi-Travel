@@ -17,7 +17,15 @@ angular
     'firebase',
     'ui.router'
   ])
-  .constant('FirebaseUrl', 'https://popping-heat-9212.firebaseio.com/')
+  .config(function () {
+    var config = {
+      apiKey: "AIzaSyA3j9xYtORbgBlp4LX5tBGsEqGlY9yY_1g",
+      authDomain: "baozi-travel-staging.firebaseapp.com",
+      databaseURL: "https://baozi-travel-staging.firebaseio.com",
+      storageBucket: ""
+    };
+    firebase.initializeApp(config);
+  })
   .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
     $stateProvider
@@ -27,7 +35,7 @@ angular
         controller: 'WeatherCtrl as weather',
         resolve: {
           requireNoAuth: function ($state, Auth) {
-            return Auth.$requireAuth().then(function (auth) {
+            return Auth.$requireSignIn().then(function () {
               $state.go('panel.profile');
             }, function (error) {
               console.log(error);
@@ -45,7 +53,7 @@ angular
             // authenticated and reject otherwise. promise.catch will catch the
             // rejection. catch is a shorthand for us if we don't want to
             // process the success handler.
-            return Auth.$requireAuth().catch(function () {
+            return Auth.$requireSignIn().catch(function () {
               $state.go('home');
               console.log('No User');
             });
@@ -61,8 +69,8 @@ angular
             return Channels.$loaded();
           },
           profile: function ($state, Auth, Users) {
-            return Auth.$requireAuth().then(function (auth) {
-              return Users.getProfile(auth.uid).$loaded().then(function (profile) {
+            return Auth.$requireSignIn().then(function (firebaseUser) {
+              return Users.getProfile(firebaseUser.uid).$loaded().then(function (profile) {
                 if (profile.displayName){
                   return profile;
                 }else{
@@ -70,6 +78,7 @@ angular
                 }
               });
             }, function (error) {
+              console.log(error);
               $state.go('home');
             });
           }
@@ -120,7 +129,7 @@ angular
         controller: 'MapCtrl as mapCtrl',
         resolve:{
           profile: function ($state, Auth, Users) {
-            return Auth.$requireAuth().then(function (auth) {
+            return Auth.$requireSignIn().then(function (auth) {
               return Users.getProfile(auth.uid).$loaded().then(function (profile) {
                 if (profile.displayName){
                   return profile;
@@ -129,6 +138,7 @@ angular
                 }
               });
             }, function (error) {
+              console.log(error);
               $state.go('home');
             });
           }
@@ -140,8 +150,8 @@ angular
         controller: 'MeetupCtrl as meetupCtrl',
         resolve:{
           profile: function ($state, Auth, Users) {
-            return Auth.$requireAuth().then(function (auth) {
-              return Users.getProfile(auth.uid).$loaded().then(function (profile) {
+            return Auth.$requireSignIn().then(function (firebaseUser) {
+              return Users.getProfile(firebaseUser.uid).$loaded().then(function (profile) {
                 if (profile.displayName){
                   return profile;
                 }else{
@@ -149,6 +159,7 @@ angular
                 }
               });
             }, function (error) {
+              console.log(error);
               $state.go('home');
             });
           }
@@ -166,19 +177,19 @@ angular
         templateUrl: 'templates/panel/profile/profile.html',
         parent: 'panel',
         resolve: {
-          auth: function ($state, Users, Auth) {
+          auth: function ($state, Auth) {
             // $requireAuth() resolve a promise successfully when a user is
             // authenticated and reject otherwise. promise.catch will catch the
             // rejection. catch is a shorthand for us if we don't want to
             // process the success handler.
-            return Auth.$requireAuth().catch(function () {
+            return Auth.$requireSignIn().catch(function () {
               $state.go('home');
               console.log('No User');
             });
           },
           profile: function (Users, Auth) {
-            return Auth.$requireAuth().then(function (auth) {
-              return Users.getProfile(auth.uid).$loaded();
+            return Auth.$requireSignIn().then(function (firebaseUser) {
+              return Users.getProfile(firebaseUser.uid).$loaded();
             });
           }
         }

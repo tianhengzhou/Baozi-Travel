@@ -3,14 +3,14 @@
  */
 "use strict";
 angular.module('baoziApp')
-  .factory('Channels', function ($firebaseArray, FirebaseUrl) {
-    var ref = new Firebase(FirebaseUrl+'channels');
+  .factory('Channels', function ($firebaseArray) {
+    var ref = firebase.database().ref().child('channels');
     var channels = $firebaseArray(ref);
     return channels;
   })
-  .factory('Messages', function ($firebaseArray, FirebaseUrl) {
-    var channelMessagesRef = new Firebase(FirebaseUrl + 'channelMessages');
-    var userMessagesRef = new Firebase(FirebaseUrl + 'userMessages');
+  .factory('Messages', function ($firebaseArray) {
+    var channelMessagesRef = firebase.database().ref().child('channelMessages');
+    var userMessagesRef = firebase.database().ref().child('userMessages');
     return {
       forChannel: function (channelId) {
         return $firebaseArray(channelMessagesRef.child(channelId));
