@@ -26,6 +26,13 @@ angular
     };
     firebase.initializeApp(config);
   })
+  .run(function ($rootScope, $state) {
+    $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+      event.preventDefault();
+      $state.get('error').error = { code: error.code };
+      return $state.go('error');
+    });
+  })
   .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
     $stateProvider
@@ -34,14 +41,25 @@ angular
         templateUrl: 'templates/weather/weather.html',
         controller: 'WeatherCtrl as weather',
         resolve: {
-          requireNoAuth: function ($state, Auth) {
-            return Auth.$requireSignIn().then(function () {
+          requireNoAuth: function ($state, $q, Auth) {
+            return Auth.$requireSignIn()
+              .then(function () {
               $state.go('panel.profile');
-            }, function (error) {
-              console.log(error);
+              }).catch(function (error) {
+                console.debug('No Auth');
             });
           }
         }
+      })
+      .state('error', {
+        url: '/error',
+        resolve: {
+          errorObj: [function () {
+            return this.self.error;
+          }]
+        },
+        controller: 'ErrorCtrl as errorCtrl',
+        templateUrl: 'views/error.html' // displays an error message
       })
       .state('panel', {
         abstract: true,

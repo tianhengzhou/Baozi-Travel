@@ -5,6 +5,6 @@
 angular.module('baoziApp')
   .factory('Meetups', function ($firebaseArray) {
     var ref = firebase.database().ref().child('meetups');
-    var meetups = $firebaseArray(ref);
-    return meetups;
+    // var meetups = $firebaseArray(ref);
+    return ref;
   });

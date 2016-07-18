@@ -16,8 +16,6 @@ angular.module('baoziApp')
       authCtrl.login = function () {
         Auth.$signInWithEmailAndPassword(authCtrl.user.email,
           authCtrl.user.password).then(function (firebaseUser) {
-          console.log(authCtrl.user);
-          console.log(firebaseUser.uid); 
           $state.go('panel.profile');
 
         }, function (err) {

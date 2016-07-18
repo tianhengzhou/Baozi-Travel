@@ -16,6 +16,8 @@ angular.module('baoziApp')
         return $firebaseArray(channelMessagesRef.child(channelId));
       },
       forUsers: function (uid1, uid2) {
+        //This is to make sure the path is same whenever who is sender and
+        // receiver. They're all access to same resource.
         var path = uid1 < uid2 ? uid1 + '/' + uid2 : uid2 + '/' + uid1;
         return $firebaseArray(userMessagesRef.child(path));
       }

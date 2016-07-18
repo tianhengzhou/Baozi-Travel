@@ -6,29 +6,46 @@ angular.module('baoziApp')
   .controller('MeetupCtrl', function($scope, $mdDialog, $mdMedia, profile,
                                      Meetups){
     var meetupCtrl = this;
-    meetupCtrl.profile = profile;
-    var DialogCtrl = function ($scope, $mdDialog) {
+    var createMeetupJson = function () {
+      var description = (typeof $scope.description === 'undefined') ?
+        '' : $scope.description;
+      $scope.guest = $scope.guest.replace(/(^,)|(,$)/g, '');
+      $scope.guests = $scope.guest.split(',');
+      return {
+        'name': $scope.name,
+        'host': $scope.host,
+        'type': $scope.type,
+        'location': $scope.location,
+        'detailLoc': $scope.detailLoc,
+        'guests': $scope.guests,
+        'startDateTime': new Date($scope.startDateTime).getTime(),
+        'endDateTime': new Date($scope.endDateTime).getTime(),
+        'description': description,
+        'createDate': (new Date()).getTime(),
+        'createBy': profile.displayName
+      };
+    };
+    meetupCtrl.host = profile.displayName;
+    var DialogCtrl = function ($scope) {
       $scope.cancel = function () {
         $mdDialog.cancel();
       };
-    };
-    var createMeetupJson = function () {
-      var description = (typeof meetupCtrl.description === 'undefined') ?
-        '' : meetupCtrl.description;
-      meetupCtrl.guest = meetupCtrl.guest.replace(/(^,)|(,$)/g, '');
-      meetupCtrl.guests = meetupCtrl.guest.split(',');
-      return {
-        'name': meetupCtrl.name,
-        'host': meetupCtrl.host,
-        'location': meetupCtrl.location,
-        'detailLocation': $scope.detailLocation,
-        'guests': meetupCtrl.guests,
-        'startDateTime': meetupCtrl.startDateTime.getTime(),
-        'endDateTime': meetupCtrl.endDateTime.getTime(),
-        'description': description,
-        'createDate': (new Date()).getTime(),
-        'createBy': meetupCtrl.profile.displayName
+      $scope.host= profile.displayName;
+      $scope.createEvent = function () {
+        Meetups.push(createMeetupJson());
+        $mdDialog.hide();
       };
+      $scope.types = [
+        'Conference',
+        'Meeting',
+        'Party',
+        'Wedding',
+        'Social Networking',
+        'Birthday',
+        'Family',
+        'Sport',
+        'Other'
+      ];
     };
     meetupCtrl.showDialog = function (event) {
       var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
