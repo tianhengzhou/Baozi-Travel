@@ -3,9 +3,11 @@
  */
 "use strict";
 angular.module('baoziApp')
-  .controller('MeetupCtrl', function($scope, $mdDialog, $mdMedia, profile,
-                                     Meetups){
+  .controller('MeetupCtrl', function($scope, $mdDialog, $firebaseObject, $mdMedia, profile,
+                                     Meetups, meetups){
     var meetupCtrl = this;
+    meetupCtrl.meetups = meetups;
+    console.log(meetupCtrl.meetups);
     var createMeetupJson = function () {
       var description = (typeof $scope.description === 'undefined') ?
         '' : $scope.description;
@@ -32,7 +34,7 @@ angular.module('baoziApp')
       };
       $scope.host= profile.displayName;
       $scope.createEvent = function () {
-        Meetups.push(createMeetupJson());
+        Meetups.all.push(createMeetupJson());
         $mdDialog.hide();
       };
       $scope.types = [

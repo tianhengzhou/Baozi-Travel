@@ -46,6 +46,7 @@ angular
               .then(function () {
               $state.go('panel.profile');
               }).catch(function (error) {
+                  console.debug(error);
                 console.debug('No Auth');
             });
           }
@@ -180,6 +181,9 @@ angular
               console.log(error);
               $state.go('home');
             });
+          },
+          meetups: function (Meetups) {
+            return Meetups.forMeetup().$loaded();
           }
         }
       })

@@ -2,11 +2,9 @@
     <md-button class="md-primary md-raised"
                ng-click="meetupCtrl.showDialog($event)">Create
         Meetup</md-button>
-
-    <!--<md-whiteframe class="md-whiteframe-10dp" >-->
-        <!--&lt;!&ndash;<meetup-create>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;</meetup-create>&ndash;&gt;-->
-    <!--</md-whiteframe>-->
-
+</div>
+<div layout="row" layout-padding="" layout-margin="">
+    <md-whiteframe class="md-whiteframe-10dp"  ng-repeat="meetup in meetupCtrl.meetups">
+        {{meetup.name}}
+    </md-whiteframe>
 </div>

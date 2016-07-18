@@ -4,7 +4,12 @@
 "use strict";
 angular.module('baoziApp')
   .factory('Meetups', function ($firebaseArray) {
-    var ref = firebase.database().ref().child('meetups');
+    var meetupRef = firebase.database().ref().child('meetups');
     // var meetups = $firebaseArray(ref);
-    return ref;
+    return {
+      forMeetup: function () {
+        return $firebaseArray(meetupRef); 
+      },
+      all: meetupRef
+    };
   });
