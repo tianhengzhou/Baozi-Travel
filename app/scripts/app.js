@@ -187,6 +187,30 @@ angular
           }
         }
       })
+      .state('panel.business', {
+        url: '/business',
+        templateUrl: 'templates/panel/business/business.html',
+        controller: 'BusinessCtrl as businessCtrl',
+        resolve:{
+          profile: function ($state, Auth, Users) {
+            return Auth.$requireSignIn().then(function (firebaseUser) {
+              return Users.getProfile(firebaseUser.uid).$loaded().then(function (profile) {
+                if (profile.displayName){
+                  return profile;
+                }else{
+                  $state.go('panel.profile');
+                }
+              });
+            }, function (error) {
+              console.log(error);
+              $state.go('home');
+            });
+          },
+          businesses: function (Businesses) {
+            return Businesses.forBusiness().$loaded();
+          }
+        }
+      })
       .state('panel.blog', {
         url: '/blog',
         templateUrl: 'templates/panel/chat/blog.html',

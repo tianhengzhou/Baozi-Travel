@@ -23,6 +23,12 @@ angular.module('baoziApp')
         awesome_icon: 'fa fa-calendar'
       },
       {
+        name: 'Business',
+        link: 'panel.business',
+        icon: '&#xEB3F;',
+        awesome_icon: 'fa fa-briefcase'
+      },
+      {
         name: 'Travel Blog',
         link: 'panel.blog',
         icon: '&#xE87A;',

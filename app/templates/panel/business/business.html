@@ -1,0 +1,10 @@
+<div layout="row" layout-padding layout-margin>
+    <md-button class="md-primary md-raised"
+               ng-click="businessCtrl.showDialog($event)">
+        Add New Buyer/Supplier</md-button>
+</div>
+<div layout="row" layout-padding="" layout-margin="">
+    <md-whiteframe class="md-whiteframe-10dp"  ng-repeat="meetup in businessCtrl.meetups">
+        {{meetup.name}}
+    </md-whiteframe>
+</div>
