@@ -54,6 +54,10 @@ angular.module('baoziApp')
         inventory_id = inventoriesRef.push(createInventoryJson());
         inventory.child('inventory_id').set(inventory_id.key);
       }
+      function removeInventories(snap){
+        var inventory_id = snap.val().inventory_id;
+        inventoriesRef.child(inventory_id).remove();
+      }
       function addBusinesses(idxSnap) {
         if (profile.businesses === undefined || profile.businesses.length === 0){
           profile.businesses = [idxSnap.key];
@@ -71,8 +75,9 @@ angular.module('baoziApp')
         var index = profile.businesses.indexOf(snap.key);
         if (index > -1){
           profile.businesses.splice(index, 1);
+          removeInventories(snap);
+          profile.$save();
         }
-        profile.$save();
       }
       businessRef.on('child_added', addBusinesses);
       businessRef.on('child_removed', removBuesinesses);
