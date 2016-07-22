@@ -55,13 +55,11 @@ angular.module('baoziApp')
         inventory.child('inventory_id').set(inventory_id.key);
       }
       function addBusinesses(idxSnap) {
-        console.log(idxSnap);
-        var inventory_id;
         if (profile.businesses === undefined || profile.businesses.length === 0){
           profile.businesses = [idxSnap.key];
           addInventories(idxSnap);
         }else{
-          if (profile.businesses.indexOf(idxSnap.key) == -1){
+          if (profile.businesses.indexOf(idxSnap.key) === -1){
             profile.businesses.push(idxSnap.key);
             addInventories(idxSnap);
           }
