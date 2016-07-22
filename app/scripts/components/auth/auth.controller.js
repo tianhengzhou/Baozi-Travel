@@ -10,8 +10,7 @@ angular.module('baoziApp')
       var ref =firebase.database().ref();
       authCtrl.user = {
         email: '',
-        password: '',
-        displayName: ''
+        password: ''
       };
       authCtrl.login = function () {
         Auth.$signInWithEmailAndPassword(authCtrl.user.email,
@@ -27,7 +26,8 @@ angular.module('baoziApp')
           authCtrl.user.password).then(function (user) {
           ref.child('users').child(user.uid).set({
             displayName: authCtrl.user.email,
-            emailHash: md5.createHash(authCtrl.user.email)
+            emailHash: md5.createHash(authCtrl.user.email),
+            businesses: ''
           });
          authCtrl.login();
         }).catch(function (error) {

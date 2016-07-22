@@ -208,6 +208,9 @@ angular
           },
           businesses: function (Businesses) {
             return Businesses.forBusiness().$loaded();
+          },
+          inventories: function (Inventories) {
+            return Inventories.forInventory().$loaded();
           }
         }
       })

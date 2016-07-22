@@ -11,6 +11,9 @@ angular.module('baoziApp')
       getProfile: function (uid) {
         return $firebaseObject(usersRef.child(uid));
       },
+      getBusiness: function (uid) {
+        return usersRef.child(uid).child('businesses');
+      },
       getDisplayName: function (uid) {
         return users.$getRecord(uid).displayName;
       },

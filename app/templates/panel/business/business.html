@@ -4,7 +4,14 @@
         Add New Buyer/Supplier</md-button>
 </div>
 <div layout="row" layout-padding="" layout-margin="">
-    <md-whiteframe class="md-whiteframe-10dp"  ng-repeat="meetup in businessCtrl.meetups">
-        {{meetup.name}}
+    <md-whiteframe class="md-whiteframe-10dp"
+                   ng-repeat="business in businessCtrl.businesses">
+        <div layout="row">
+            Buyer Name: {{business.buyer_name}}
+        </div>
+        <div layout="row">
+            Seller Name: {{business.seller_name}}
+        </div>
+        <md-button class="md-raised">Go To Inventory Detail</md-button>
     </md-whiteframe>
 </div>

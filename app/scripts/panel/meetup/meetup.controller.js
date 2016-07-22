@@ -8,27 +8,29 @@ angular.module('baoziApp')
     var meetupCtrl = this;
     meetupCtrl.meetups = meetups;
     console.log(meetupCtrl.meetups);
-    var createMeetupJson = function () {
-      var description = (typeof $scope.description === 'undefined') ?
-        '' : $scope.description;
-      $scope.guest = $scope.guest.replace(/(^,)|(,$)/g, '');
-      $scope.guests = $scope.guest.split(',');
-      return {
-        'name': $scope.name,
-        'host': $scope.host,
-        'type': $scope.type,
-        'location': $scope.location,
-        'detailLoc': $scope.detailLoc,
-        'guests': $scope.guests,
-        'startDateTime': new Date($scope.startDateTime).getTime(),
-        'endDateTime': new Date($scope.endDateTime).getTime(),
-        'description': description,
-        'createDate': (new Date()).getTime(),
-        'createBy': profile.displayName
-      };
-    };
+
     meetupCtrl.host = profile.displayName;
     var DialogCtrl = function ($scope) {
+      var createMeetupJson = function () {
+        var description = (typeof $scope.description === 'undefined') ?
+          '' : $scope.description;
+        console.log($scope.guest);
+        $scope.guest = $scope.guest.replace(/(^,)|(,$)/g, '');
+        $scope.guests = $scope.guest.split(',');
+        return {
+          'name': $scope.name,
+          'host': $scope.host,
+          'type': $scope.type,
+          'location': $scope.location,
+          'detailLoc': $scope.detailLoc,
+          'guests': $scope.guests,
+          'startDateTime': new Date($scope.startDateTime).getTime(),
+          'endDateTime': new Date($scope.endDateTime).getTime(),
+          'description': description,
+          'createDate': (new Date()).getTime(),
+          'createBy': profile.displayName
+        };
+      };
       $scope.cancel = function () {
         $mdDialog.cancel();
       };

@@ -12,4 +12,14 @@ angular.module('baoziApp')
         },
         all: businessRef
       };
+    })
+    .factory('Inventories', function ($firebaseArray) {
+      var inventoryRef = firebase.database().ref().child('inventories');
+      return {
+        forInventory: function () {
+          return $firebaseArray(inventoryRef);
+        },
+        all: inventoryRef
+      }
+
     });
