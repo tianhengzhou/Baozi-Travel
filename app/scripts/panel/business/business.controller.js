@@ -5,12 +5,12 @@
 angular.module('baoziApp')
     .controller('BusinessCtrl', function($scope, $mdDialog, $firebaseObject,
                                          $mdMedia, $firebaseArray, profile,
-                                         businesses, inventories, Businesses){
+                                         businesses, Inventories, Businesses){
       var businessCtrl = this;
       businessCtrl.businesses = businesses;
       businessCtrl.host = profile.displayName;
       var businessRef = Businesses.all;
-      var inventoriesRef = firebase.database().ref().child('inventories');
+      var inventoriesRef = Inventories.all;
       var createInventoryJson = function () {
         return {
           'p_name': '',
@@ -34,14 +34,12 @@ angular.module('baoziApp')
             'inventory_id': ""
           };
         };
-
         $scope.cancel = function () {
           $mdDialog.cancel();
         };
         $scope.host= profile.displayName;
         $scope.createEvent = function () {
           businesses.$add(createBusinessJson());
-          // inventories.$add(createInventoryJson());
           $mdDialog.hide();
         };
         $scope.types = [
