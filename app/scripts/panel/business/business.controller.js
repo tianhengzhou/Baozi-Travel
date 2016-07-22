@@ -5,10 +5,23 @@
 angular.module('baoziApp')
     .controller('BusinessCtrl', function($scope, $mdDialog, $firebaseObject,
                                          $mdMedia, $firebaseArray, profile,
-                                         businesses, inventories){
+                                         businesses, inventories, Businesses){
       var businessCtrl = this;
       businessCtrl.businesses = businesses;
       businessCtrl.host = profile.displayName;
+      var businessRef = Businesses.all;
+      var inventoriesRef = firebase.database().ref().child('inventories');
+      var createInventoryJson = function () {
+        return {
+          'p_name': '',
+          'p_price_buy': '',
+          'p_price_sell': '',
+          'p_payment_paid': '',
+          'p_payment_received': '',
+          'p_shipment_send': '',
+          'p_order_complete': ''
+        };
+      };
       var DialogCtrl = function ($scope) {
         var createBusinessJson = function () {
           // var description = (typeof $scope.description === 'undefined') ?
@@ -21,35 +34,14 @@ angular.module('baoziApp')
             'inventory_id': ""
           };
         };
-        var createInventoryJson = function () {
-          return {
-            'p_name': '',
-            'p_price_buy': '',
-            'p_price_sell': '',
-            'p_payment_paid': '',
-            'p_payment_received': '',
-            'p_shipment_send': '',
-            'p_order_complete': ''
-          };
-        };
+
         $scope.cancel = function () {
           $mdDialog.cancel();
         };
         $scope.host= profile.displayName;
         $scope.createEvent = function () {
-          businesses.$add(createBusinessJson()).then(function (ref) {
-            console.log(ref.path.o[1]);
-            // var id = [];
-            if (profile.businesses.length === 0){
-              profile.businesses = [ref.path.o[1]];
-            }else{
-              profile.businesses.push(ref.path.o[1]);
-            }
-            profile.$save();
-          });
-          inventories.$add(createInventoryJson()).then(function (ref) {
-            console.log(ref.path.o[1]);
-          });
+          businesses.$add(createBusinessJson());
+          // inventories.$add(createInventoryJson());
           $mdDialog.hide();
         };
         $scope.types = [
@@ -57,6 +49,37 @@ angular.module('baoziApp')
           '神医'
         ];
       };
+      function addInventories(idxSnap){
+        var inventory = businessRef.child(idxSnap.key);
+        var inventory_id;
+        profile.$save();
+        inventory_id = inventoriesRef.push(createInventoryJson());
+        inventory.child('inventory_id').set(inventory_id.key);
+      }
+      function addBusinesses(idxSnap) {
+        console.log(idxSnap);
+        var inventory_id;
+        if (profile.businesses === undefined || profile.businesses.length === 0){
+          profile.businesses = [idxSnap.key];
+          addInventories(idxSnap);
+        }else{
+          if (profile.businesses.indexOf(idxSnap.key) == -1){
+            profile.businesses.push(idxSnap.key);
+            addInventories(idxSnap);
+          }
+        }
+
+      }
+      function removBuesinesses(snap) {
+        console.log(snap.key);
+        var index = profile.businesses.indexOf(snap.key);
+        if (index > -1){
+          profile.businesses.splice(index, 1);
+        }
+        profile.$save();
+      }
+      businessRef.on('child_added', addBusinesses);
+      businessRef.on('child_removed', removBuesinesses);
       businessCtrl.showDialog = function (event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         $mdDialog.show({
