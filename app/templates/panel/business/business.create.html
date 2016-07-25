@@ -2,7 +2,7 @@
     <form name="eventForm">
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2>Create Meetup</h2>
+                <h2>提交入库</h2>
                 <span flex=""></span>
                 <md-button class="md-icon-button"
                            ng-click="cancel()">
@@ -14,31 +14,86 @@
             <div layout="column" class="md-inline-form md-dialog-content"
                  layout-padding="">
                 <md-input-container class="md-block">
-                    <label>Buyer Name</label>
-                    <input name="buyerName" ng-model="buyerName"
-                           md-maxlength="30"
+                    <label>Mitbbs ID</label>
+                    <input name="mitbbsId" ng-model="mitbbsId"
+                           md-maxlength="60"
                            required/>
-                    <div ng-messages="eventForm.buyerName.$error"
-                         ng-show="eventForm.buyerName.$touched||eventForm.buyerName.$submitted">
+                    <div ng-messages="eventForm.mitbbsId.$error"
+                         ng-show="eventForm.mitbbsId.$touched||eventForm.mitbbsId.$submitted">
                         <div ng-message="required">The name is required.</div>
                         <div ng-message="md-maxlength">The name has to be less
                             than 30 characters long.</div>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <label>Seller Name</label>
-                    <input name="sellerName" ng-model="sellerName" md-maxlength="30"
+                    <label>物品名称</label>
+                    <md-select name="product" ng-model="product"
+                               required>
+                        <md-option ng-repeat="product in products"
+                                   value="{{product}}">{{product}}</md-option>
+                    </md-select>
+                    <div ng-messages="eventForm.product.$error">
+                        <div ng-message="required">The product is required
+                            .</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>物品价格</label>
+                    <input name="price" type="number" ng-model="price"
                            required/>
-                    <div ng-messages="eventForm.sellerName.$error"
-                         ng-show="eventForm.sellerName.$touched||eventForm.sellerName.$submitted">
-                        <div ng-message="required">The name is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less
-                            than 30 characters long.</div>
+                    <div ng-messages="eventForm.price.$error"
+                         ng-show="eventForm.price.$touched||eventForm.price.$submitted">
+                        <div ng-message="required">The price is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>物品数量</label>
+                    <input name="quantity" type="number" ng-model="quantity"
+                           required/>
+                    <div ng-messages="eventForm.quantity.$error"
+                         ng-show="eventForm.quantity.$touched||eventForm.quantity.$submitted">
+                        <div ng-message="required">The quantity is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>选择支付方法</label>
+                    <md-select name="method" ng-model="method"
+                               required>
+                        <md-option ng-repeat="method in methods"
+                                   value="{{method.$value}}">{{method
+                            .$value}}</md-option>
+                    </md-select>
+                    <div ng-messages="eventForm.method.$error">
+                        <div ng-message="required">The method is required
+                            .</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Location</label>
+                    <input name="location"
+                           ng-model="location"
+                           googleplace
+                           placeholder="Enter a Location" required>
+                    <div ng-messages="eventForm.location.$error">
+                        <div ng-message="required">The location is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Zip Code</label>
+                    <input name="zipCode" ng-model="zipCode"
+                           md-maxlength="5"
+                           required/>
+                    <div ng-messages="eventForm.zipCode.$error"
+                         ng-show="eventForm.zipCode.$touched||eventForm.zipCode.$submitted">
+                        <div ng-message="required">The zip code is required
+                            .</div>
+                        <div ng-message="md-maxlength">The zip code has to
+                            not greter than 5 characters long.</div>
                     </div>
                 </md-input-container>
             </div>
         </md-dialog-content>
     </form>
     <md-button class="md-raised md-primary"
-               ng-click="createEvent()">Create Event</md-button>
+               ng-click="uploadProduct()">Create Event</md-button>
 </md-dialog>

@@ -5,7 +5,6 @@
 angular.module('baoziApp')
     .factory('Businesses', function ($firebaseArray) {
       var businessRef = firebase.database().ref().child('businesses');
-      // var meetups = $firebaseArray(ref);
       return {
         forBusiness: function () {
           return $firebaseArray(businessRef);
@@ -13,13 +12,13 @@ angular.module('baoziApp')
         all: businessRef
       };
     })
-    .factory('Inventories', function ($firebaseArray) {
-      var inventoryRef = firebase.database().ref().child('inventories');
+    .factory('Methods', function ($firebaseArray) {
+      var methodRef = firebase.database().ref().child('methods');
       return {
-        forInventory: function () {
-          return $firebaseArray(inventoryRef);
+        forMethod: function () {
+          return $firebaseArray(methodRef);
         },
-        all: inventoryRef
+        all: methodRef
       }
 
     });

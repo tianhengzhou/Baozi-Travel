@@ -15,13 +15,14 @@ angular
     'ngSanitize',
     'angular-md5',
     'firebase',
-    'ui.router'
+    'ui.router',
+    'md.data.table'
   ])
   .config(function () {
     var config = {
-      apiKey: "AIzaSyA3j9xYtORbgBlp4LX5tBGsEqGlY9yY_1g",
-      authDomain: "baozi-travel-staging.firebaseapp.com",
-      databaseURL: "https://baozi-travel-staging.firebaseio.com",
+      apiKey: "AIzaSyAI4HCemOw16WDwFWhjN7k443LF6PufuRM",
+      authDomain: "zhenling-project.firebaseapp.com",
+      databaseURL: "https://zhenling-project.firebaseio.com",
       storageBucket: ""
     };
     firebase.initializeApp(config);
@@ -208,6 +209,9 @@ angular
           },
           businesses: function (Businesses) {
             return Businesses.forBusiness().$loaded();
+          },
+          methods: function (Methods) {
+            return Methods.forMethod().$loaded();
           }
         }
       })

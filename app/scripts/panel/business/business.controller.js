@@ -5,86 +5,64 @@
 angular.module('baoziApp')
     .controller('BusinessCtrl', function($scope, $mdDialog, $firebaseObject,
                                          $mdMedia, $firebaseArray, profile,
-                                         businesses, Inventories, Businesses){
+                                         businesses, methods){
       var businessCtrl = this;
       businessCtrl.businesses = businesses;
+      console.log(businessCtrl.businesses);
       businessCtrl.host = profile.displayName;
-      var businessRef = Businesses.all;
-      var inventoriesRef = Inventories.all;
-      var createInventoryJson = function () {
-        return {
-          'p_name': '',
-          'p_price_buy': '',
-          'p_price_sell': '',
-          'p_payment_paid': '',
-          'p_payment_received': '',
-          'p_shipment_send': '',
-          'p_order_complete': ''
-        };
-      };
-      var DialogCtrl = function ($scope) {
-        var createBusinessJson = function () {
-          // var description = (typeof $scope.description === 'undefined') ?
-          //   '' : $scope.description;
-          // $scope.guest = $scope.guest.replace(/(^,)|(,$)/g, '');
-          // $scope.guests = $scope.guest.split(',');
+      var InventoryCtrl = function ($scope) {
+        var createProductJson = function () {
           return {
-            'buyer_name': $scope.buyerName,
-            'seller_name': $scope.sellerName,
-            'inventory_id': ""
+            'mitbbsId': $scope.mitbbsId,
+            'product': $scope.product,
+            'price': $scope.price,
+            'quantity': $scope.quantity,
+            'location': $scope.location,
+            'zipCode': $scope.zipCode,
+            'paid': false
           };
         };
         $scope.cancel = function () {
           $mdDialog.cancel();
         };
         $scope.host= profile.displayName;
-        $scope.createEvent = function () {
-          businesses.$add(createBusinessJson());
+        $scope.uploadProduct = function () {
+          businesses.$add(createProductJson());
           $mdDialog.hide();
         };
-        $scope.types = [
-          '小护士',
-          '神医'
+        $scope.products = [
+          'Dell Inspiron 13 i7359-8408SLV  (-Adorama-)',
+          'Lenovo G50 80KR0015US Laptop (-Ebay-)',
+          'HP 15-ac143dx Laptop (-Bestbuy-)',
+          'Lenovo Ideapad 100s 80R90004US (-Bestbuy-)',
+          'DELL i5759-2012SLV Laptop (-DELL-)',
+          'Toshiba S55-C5274 Laptop (-Staepls-)'
         ];
+        $scope.methods = methods;
       };
-      function addInventories(idxSnap){
-        var inventory = businessRef.child(idxSnap.key);
-        var inventory_id;
-        profile.$save();
-        inventory_id = inventoriesRef.push(createInventoryJson());
-        inventory.child('inventory_id').set(inventory_id.key);
-      }
-      function removeInventories(snap){
-        var inventory_id = snap.val().inventory_id;
-        inventoriesRef.child(inventory_id).remove();
-      }
-      function addBusinesses(idxSnap) {
-        if (profile.businesses === undefined || profile.businesses.length === 0){
-          profile.businesses = [idxSnap.key];
-          addInventories(idxSnap);
-        }else{
-          if (profile.businesses.indexOf(idxSnap.key) === -1){
-            profile.businesses.push(idxSnap.key);
-            addInventories(idxSnap);
+      var MethodCtrl = function ($scope) {
+        var updateFlag = false;
+        $scope.methods = methods;
+        $scope.writeMethod = function (method) {
+          $scope.paymentMethod = method;
+          updateFlag = true;
+        };
+        $scope.cancel = function () {
+          $mdDialog.cancel();
+        };
+        $scope.savePaymentMethod = function () {
+          if (updateFlag){
+            methods.$save($scope.paymentMethod);
+          }else{
+            methods.$add($scope.paymentMethod);
           }
-        }
-
-      }
-      function removBuesinesses(snap) {
-        console.log(snap.key);
-        var index = profile.businesses.indexOf(snap.key);
-        if (index > -1){
-          profile.businesses.splice(index, 1);
-          removeInventories(snap);
-          profile.$save();
-        }
-      }
-      businessRef.on('child_added', addBusinesses);
-      businessRef.on('child_removed', removBuesinesses);
-      businessCtrl.showDialog = function (event) {
+          $mdDialog.hide();
+        };
+      };
+      businessCtrl.showDialogInventory = function (event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         $mdDialog.show({
-          controller: DialogCtrl,
+          controller: InventoryCtrl,
           templateUrl: 'templates/panel/business/business.create.html',
           parent: angular.element(document.body),
           targetEvent: event,
@@ -92,4 +70,31 @@ angular.module('baoziApp')
           fullscreen: useFullScreen
         });
       };
+      businessCtrl.showDialogPaymentMethod = function (event) {
+        var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+        $mdDialog.show({
+          controller: MethodCtrl,
+          templateUrl: 'templates/panel/business/business.payment.method.html',
+          parent: angular.element(document.body),
+          targetEvent: event,
+          clickOutsideToClose: true,
+          fullscreen: useFullScreen
+        });
+      };
+      // $scope.gridOptions = {
+      //   enableSorting: true,
+      //   columnDefs: [
+      //     {field: 'mitbbsId'},
+      //     {field: 'product'},
+      //     {field: 'price'},
+      //     {field: 'quantity'},
+      //     {field: 'location'},
+      //     {field: 'zipCode'},
+      //     {field: 'paid'}
+      //   ],
+      //   onRegisterApi: function( gridApi ) {
+      //     $scope.grid1Api = gridApi;
+      //   }
+      // };
+      // $scope.gridOptions.data = businessCtrl.businesses
     });
