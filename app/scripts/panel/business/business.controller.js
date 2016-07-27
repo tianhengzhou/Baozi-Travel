@@ -6,6 +6,7 @@ angular.module('baoziApp')
     .controller('BusinessCtrl', function($scope, $mdDialog, $firebaseObject,
                                          $mdMedia, $firebaseArray, profile,
                                          businesses, methods){
+      var authorizeRef = firebase.database().ref();
       var businessCtrl = this;
       $scope.query = {
         filter: '',
@@ -15,6 +16,10 @@ angular.module('baoziApp')
       };
       $scope.businesses = businesses;
       $scope.selected = [];
+      $scope.logItem = function (item) {
+        console.log(item.$id, 'was selected');
+      };
+      console.log($scope.selected);
       var InventoryCtrl = function ($scope) {
         var createProductJson = function () {
           return {
@@ -65,10 +70,40 @@ angular.module('baoziApp')
           $mdDialog.hide();
         };
       };
-      var ConfirmCtrl = function ($scope) {
+      var ConfirmCtrl = function ($scope, $firebaseObject, selectedBusinesses,
+                                  businesses) {
         $scope.cancel = function () {
           $mdDialog.cancel();
         };
+        function confirmPayment(business) {
+          console.debug(business);
+          if (!business.paid){
+            business.paid = new Date().toDateString();
+            businesses.$save(business);
+            console.debug(business);
+          }
+        }
+        function success(item){
+          console.debug(item);
+          if (selectedBusinesses.length > 0){
+            if (item.$value == null){
+              $scope.error = 'Invalid Secret.'
+            }else{
+              selectedBusinesses.forEach(confirmPayment);
+              $mdDialog.cancel();
+            }
+          }else{
+            $scope.error = 'You need at least select one record.'
+          }
+
+        }
+        function error(){
+          $scope.error = 'Invalid Secret.'
+        }
+        $scope.authorizeUser = function() {
+          $firebaseObject(authorizeRef.child(
+            $scope.secret)).$loaded().then(success, error);
+        }
       };
       businessCtrl.showDialogInventory = function (event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
@@ -100,6 +135,8 @@ angular.module('baoziApp')
           parent: angular.element(document.body),
           targetEvent: event,
           clickOutsideToClose: true,
+          locals: { selectedBusinesses: $scope.selected ,
+            businesses: $scope.businesses},
           fullscreen: useFullScreen
         });
       };
