@@ -7,9 +7,14 @@ angular.module('baoziApp')
                                          $mdMedia, $firebaseArray, profile,
                                          businesses, methods){
       var businessCtrl = this;
-      businessCtrl.businesses = businesses;
-      console.log(businessCtrl.businesses);
-      businessCtrl.host = profile.displayName;
+      $scope.query = {
+        filter: '',
+        order: 'mitbbsId',
+        limit: 5,
+        page: 1
+      };
+      $scope.businesses = businesses;
+      $scope.selected = [];
       var InventoryCtrl = function ($scope) {
         var createProductJson = function () {
           return {
@@ -19,13 +24,14 @@ angular.module('baoziApp')
             'quantity': $scope.quantity,
             'location': $scope.location,
             'zipCode': $scope.zipCode,
+            'paymentMethod': $scope.paymentMethod,
             'paid': false
           };
         };
         $scope.cancel = function () {
           $mdDialog.cancel();
         };
-        $scope.host= profile.displayName;
+        $scope.mitbbsId= profile.mitbbsId;
         $scope.uploadProduct = function () {
           businesses.$add(createProductJson());
           $mdDialog.hide();
@@ -36,7 +42,7 @@ angular.module('baoziApp')
           'HP 15-ac143dx Laptop (-Bestbuy-)',
           'Lenovo Ideapad 100s 80R90004US (-Bestbuy-)',
           'DELL i5759-2012SLV Laptop (-DELL-)',
-          'Toshiba S55-C5274 Laptop (-Staepls-)'
+          'Toshiba S55-C5274 Laptop (-Staples-)'
         ];
         $scope.methods = methods;
       };
@@ -57,6 +63,11 @@ angular.module('baoziApp')
             methods.$add($scope.paymentMethod);
           }
           $mdDialog.hide();
+        };
+      };
+      var ConfirmCtrl = function ($scope) {
+        $scope.cancel = function () {
+          $mdDialog.cancel();
         };
       };
       businessCtrl.showDialogInventory = function (event) {
@@ -81,20 +92,15 @@ angular.module('baoziApp')
           fullscreen: useFullScreen
         });
       };
-      // $scope.gridOptions = {
-      //   enableSorting: true,
-      //   columnDefs: [
-      //     {field: 'mitbbsId'},
-      //     {field: 'product'},
-      //     {field: 'price'},
-      //     {field: 'quantity'},
-      //     {field: 'location'},
-      //     {field: 'zipCode'},
-      //     {field: 'paid'}
-      //   ],
-      //   onRegisterApi: function( gridApi ) {
-      //     $scope.grid1Api = gridApi;
-      //   }
-      // };
-      // $scope.gridOptions.data = businessCtrl.businesses
+      businessCtrl.showDialogPaymentConfirmation = function (event) {
+        var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+        $mdDialog.show({
+          controller: ConfirmCtrl,
+          templateUrl: 'templates/panel/business/business.payment.confirm.html',
+          parent: angular.element(document.body),
+          targetEvent: event,
+          clickOutsideToClose: true,
+          fullscreen: useFullScreen
+        });
+      };
     });

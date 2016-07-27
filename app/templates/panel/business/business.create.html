@@ -57,13 +57,13 @@
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>选择支付方法</label>
-                    <md-select name="method" ng-model="method"
+                    <md-select name="paymentMethod" ng-model="paymentMethod"
                                required>
                         <md-option ng-repeat="method in methods"
                                    value="{{method.$value}}">{{method
                             .$value}}</md-option>
                     </md-select>
-                    <div ng-messages="eventForm.method.$error">
+                    <div ng-messages="eventForm.paymentMethod.$error">
                         <div ng-message="required">The method is required
                             .</div>
                     </div>
