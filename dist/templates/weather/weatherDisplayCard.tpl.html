@@ -1,0 +1,33 @@
+
+    <md-card ng-model="firstday">
+      <h3>{{location}}</h3>
+      <div layout="row" layout-margin="" layout-wrap="">
+        <weather-google-icon
+                             icon="{{firstday.icon}}" custom-size="120">
+        </weather-google-icon>
+        <md-card-title flex="" layout-wrap="">
+          <md-card-title-text>
+            <div class="md-title"
+                 ng-bind-html="0 | daysNow"></div>
+          <span ng-bind-html="firstday.temp.current | temperature:0:units"
+                class="md-headline"></span>
+          </md-card-title-text>
+        </md-card-title>
+      </div>
+
+      <md-card-content>
+        <div layout="row" layout-padding="" layout-wrap="">
+          <div layout="column" ng-repeat="item in forecast.list"
+               ng-hide="$first" >
+            <div  ng-bind-html="$index | daysInTheFuture "></div>
+            <weather-google-icon icon="{{item.weather[0].icon}}"
+                                 custom-size="50"
+            ></weather-google-icon>
+            <span
+                  ng-bind-html="item.temp.day | temperature: 0 : units"></span>
+          </div>
+        </div>
+
+
+      </md-card-content>
+    </md-card>

@@ -1,0 +1,108 @@
+<md-dialog aria-label="Create Meetup" ng-cloak="">
+    <form name="eventForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Create Meetup</h2>
+                <span flex=""></span>
+                <md-button class="md-icon-button"
+                           ng-click="cancel()">
+                    <i class="material-icons" aria-label="Close">&#xE5C9;</i>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout="column" class="md-inline-form md-dialog-content"
+                 layout-padding="">
+                    <md-input-container class="md-block">
+                        <label>Meetup Name</label>
+                        <input name="name" ng-model="name" md-maxlength="30"
+                               required/>
+                        <div ng-messages="eventForm.name.$error"
+                             ng-show="eventForm.name.$touched||eventForm.name.$submitted">
+                            <div ng-message="required">The name is required.</div>
+                            <div ng-message="md-maxlength">The name has to be less
+                                than 30 characters long.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label for="meetupHost">Hoster</label>
+                        <input id="meetupHost" name="host" ng-model="host"
+                               required/>
+                        <div ng-messages="eventForm.host.$error">
+                            <div ng-message="required">The host name is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Type</label>
+                        <md-select name="type" ng-model="type"
+                                   required>
+                            <md-option ng-repeat="type in types"
+                                       value="{{type}}">{{type}}</md-option>
+                        </md-select>
+                        <div ng-messages="eventForm.type.$error">
+                            <div ng-message="required">The type is required
+                                .</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Location</label>
+                        <input name="location"
+                               ng-model="location"
+                               googleplace
+                               placeholder="Enter a Location" required>
+                        <div ng-messages="eventForm.location.$error">
+                            <div ng-message="required">The location is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>
+                            Start Date Time
+                        </label>
+                        <input name="startDateTime"
+                               ng-model="startDateTime"
+                               type="datetime-local" required/>
+                        <div ng-messages="eventForm.startDateTime.$error">
+                            <div ng-message="required">The start date time is
+                                required.
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>
+                            End Date Time
+                        </label>
+                        <input name="endDateTime"
+                               ng-model="endDateTime"
+                               type="datetime-local" required/>
+                        <div ng-messages="eventForm.endDateTime.$error">
+                            <div ng-message="required">The end date time is
+                                required.
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label for="meetupGuest">
+                            Guest
+                        </label>
+                            <input type="text" id="meetupGuest"
+                                      ng-model="guest"/>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>
+                            Description
+                        </label>
+                        <textarea name="description"
+                               ng-model="description"
+                               md-maxlength="150"></textarea>
+                        <div ng-messages="eventForm.description.$error">
+                            <div ng-message="md-maxlength">
+                                Message should less then 150.
+                            </div>
+                        </div>
+                    </md-input-container>
+            </div>
+        </md-dialog-content>
+    </form>
+    <md-button class="md-raised md-primary"
+               ng-click="createEvent()">Create Event</md-button>
+</md-dialog>

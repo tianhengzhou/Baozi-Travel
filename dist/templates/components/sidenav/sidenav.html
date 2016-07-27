@@ -1,0 +1,17 @@
+<div ng-controller="SidenavController" ng-cloak="" layout="column"
+     class="bao-sidenav" >
+    <md-sidenav
+      class="md-sidenav-left md-whiteframe-z2 mdl-color--blue-grey-800"
+      md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+      <md-toolbar class="bao-sidenav-header mdl-color--blue-grey-900">
+        <img
+          ng-src="http://www.gravatar.com/avatar/{{emailHash}}"
+          class="bao-avatar">
+        <h1 class="md-toolbar-tools">{{name}}</h1>
+        <md-button ng-click="logout()">Logout</md-button>
+      </md-toolbar>
+      <ul style="list-style: none;padding-left:0;">
+        <menu-link></menu-link>
+      </ul>
+    </md-sidenav>
+</div>

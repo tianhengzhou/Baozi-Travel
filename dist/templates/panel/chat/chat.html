@@ -1,0 +1,43 @@
+<div layout-gt-sm="row" layout="column" flex="" layout-padding
+     layout-margin>
+  <md-whiteframe class="md-whiteframe-10dp" layout="column">
+    <h3>
+      Contacts
+      <md-button class="fa fa-chevron-down" ng-click='chatCtrl.toggle()'
+         aria-hidden="true" ng-class="{rotate_180: chatCtrl.direction}">
+      </md-button>
+    </h3>
+    <div layout="column" ng-show="!chatCtrl.direction">
+      <h5 layout-padding="">Channels</h5>
+      <a style="margin-left: 20px" ng-click="chatCtrl.toggle()"
+         ng-repeat="channel in chatCtrl.channels"
+         ui-sref="panel.chat.messages({channelId: channel.$id})">
+        # {{ channel.name }}
+      </a>
+      <md-button class="md-primary" aria-label="create channel"
+                 ui-sref="panel.chat.create">
+        + create channel
+      </md-button>
+      <h5 layout-padding="">Friends</h5>
+      <md-list>
+        <md-list-item ng-repeat="user in chatCtrl.users"
+                      ng-if="user.$id !== chatCtrl.profile.$id"
+                      ui-sref="panel.chat.direct({uid: user.$id})"
+                      ng-click="chatCtrl.toggle()">
+          <img ng-src="{{chatCtrl.getGravatar(user.$id)}}"
+               alt="user avatar" class="md-avatar"
+               ng-class="{'online': user.online, 'offline': !user.online}"/>
+          <span>{{user.displayName}}</span>
+        </md-list-item>
+      </md-list>
+    </div>
+
+  </md-whiteframe>
+  <md-whiteframe class="md-whiteframe-10dp" layout="column" flex="">
+    <ui-view layout="column"></ui-view>
+  </md-whiteframe>
+</div>
+
+
+
+

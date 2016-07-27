@@ -1,0 +1,39 @@
+<div layout="row" layout-align="center" style="padding-top: 20px">
+  <md-card>
+    <md-card-header>
+      <md-card-avatar>
+        <img
+          ng-src="http://www.gravatar.com/avatar/{{profileCtrl.profile.emailHash}}"
+          alt="user avatar" style="border-radius: 50%">
+      </md-card-avatar>
+      <md-card-header-text>
+        <span class="md-title">The Traveler's Profile</span>
+        <span class="md-subhead">Please set your display name</span>
+      </md-card-header-text>
+    </md-card-header>
+    <md-card-content>
+      <h2>{{profileCtrl.profile.displayName}} Profile</h2>
+      <form ng-submit="profileCtrl.updateProfile()">
+        <p ng-hide="profileCtrl.profile.displayName">
+          You'll need a display name before you can start chatting.
+        </p>
+        <div layout="column" layout-align="center center">
+
+          <md-input-container>
+            <label>User's Display Name</label>
+            <input required type="text" placeholder="Display Name"
+                   ng-model="profileCtrl.profile.displayName"/>
+          </md-input-container>
+          <md-input-container>
+            <label>Mitbbs ID</label>
+            <input required type="text" placeholder="Mitbbs ID"
+                   ng-model="profileCtrl.profile.mitbbsId"/>
+          </md-input-container>
+          <md-button type="submit" class="md-raised md-primary">
+            Set Display Name
+          </md-button>
+        </div>
+      </form>
+    </md-card-content>
+  </md-card>
+</div>

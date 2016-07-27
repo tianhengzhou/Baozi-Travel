@@ -1,0 +1,35 @@
+  <md-subheader>{{ messageCtrl.channelName }}</md-subheader>
+<md-list
+        ng-class="{message_lg: $mdMedia('gt-sm'),
+         message_sm: !$mdMedia('gt-sm')}" scroll-bottom="messageCtrl.messages">
+  <md-list-item class="md-2-line" ng-repeat="message in messageCtrl.messages" layout-margin="">
+    <span ng-if="messageCtrl.profile.$id == message.uid && !$mdMedia('gt-sm')" flex-gt-sm="50"></span>
+    <img ng-src="{{ chatCtrl.getGravatar(message.uid) }}"
+         class="md-avatar" alt="{{ chatCtrl.getDisplayName(message.uid) }}"
+         ng-if="messageCtrl.profile.$id !== message.uid" />
+    <div class="md-list-item-text">
+        <p ng-if="messageCtrl.profile.$id !== message.uid &&
+                 messageCtrl.isChannel">
+          {{ chatCtrl.getDisplayName(message.uid) }}
+        </p>
+        <p class="bubble"
+         ng-class="{me: messageCtrl.profile.$id === message.uid,
+          you: messageCtrl.profile.$id !== message.uid}">
+        {{ message.body }}
+        </p>
+    </div>
+    <img ng-src="{{ chatCtrl.getGravatar(message.uid) }}"
+       class="md-avatar" alt="{{ chatCtrl.getDisplayName(message.uid) }}"
+       ng-if="messageCtrl.profile.$id === message.uid" />
+  </md-list-item>
+  </md-list>
+<form class="message-form" ng-submit="messageCtrl.sendMessage()" layout="row"
+  layout-margin="">
+  <md-input-container flex="80">
+    <input type="text" class="form-control" ng-model="messageCtrl.message"
+           placeholder="Type a message...">
+  </md-input-container>
+  <md-button class="md-fab" type="submit">
+    <i class="material-icons">&#xE163;</i>
+  </md-button>
+</form>
