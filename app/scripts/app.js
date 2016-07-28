@@ -188,6 +188,7 @@ angular
           }
         }
       })
+
       .state('panel.business', {
         url: '/business',
         templateUrl: 'templates/panel/business/business.html',

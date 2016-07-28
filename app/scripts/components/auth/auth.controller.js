@@ -27,7 +27,8 @@ angular.module('baoziApp')
           ref.child('users').child(user.uid).set({
             displayName: authCtrl.user.email,
             emailHash: md5.createHash(authCtrl.user.email),
-            mitbbsId: ''
+            mitbbsId: '',
+            paymentMethods: ''
           });
          authCtrl.login();
         }).catch(function (error) {
