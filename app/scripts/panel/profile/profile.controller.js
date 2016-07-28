@@ -3,22 +3,17 @@
  */
 "use strict";
 angular.module('baoziApp')
-  .controller('ProfileCtrl', function ($state, $mdDialog, $mdMedia, md5, auth,
-                                       profile) {
+  .controller('ProfileCtrl', function ($state, $mdDialog, $mdMedia,
+                                       $firebaseArray, md5, auth, profile, methods) {
       var profileCtrl = this;
-      var MethodCtrl = function ($scope, profile) {
-        console.log(profile);
+      profileCtrl.methods = methods;
+      var MethodCtrl = function ($scope) {
         $scope.cancel = function () {
           $mdDialog.cancel();
         };
         $scope.savePaymentMethod = function () {
-          if (profile.paymentMethods == ''){
-            profile.paymentMethods = [];
-          }
-          console.log(profile.paymentMethods);
-          profile.paymentMethods.push($scope.paymentMethod);
-          console.log(profile.paymentMethods);
-          profile.$save();
+          console.log(methods);
+          methods.$add({paymentMethods: $scope.paymentMethod});
           $mdDialog.hide();
         };
       };
@@ -27,13 +22,11 @@ angular.module('baoziApp')
         profileCtrl.profile.emailHash = md5.createHash(auth.email);
         profileCtrl.profile.$save();
       };
-      profileCtrl.updateMethod = function ($index, method) {
-        profileCtrl.profile.paymentMethod[$index] = method;
-        profileCtrl.profile.$save();
+      profileCtrl.updateMethod = function (method) {
+        profileCtrl.methods.$save(method);
       };
-      profileCtrl.deleteMethod = function ($index){
-        profileCtrl.profile.paymentMethod.splice($index, 1);
-        profileCtrl.profile.$save();
+      profileCtrl.deleteMethod = function (method){
+        profileCtrl.methods.$remove(method);
       };
       profileCtrl.showDialogPaymentMethod = function (event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
@@ -42,7 +35,6 @@ angular.module('baoziApp')
           templateUrl: 'templates/panel/profile/profile.payment.method.html',
           parent: angular.element(document.body),
           targetEvent: event,
-          locals: {profile: profile},
           clickOutsideToClose: true,
           fullscreen: useFullScreen
         });

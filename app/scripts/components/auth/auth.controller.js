@@ -30,6 +30,7 @@ angular.module('baoziApp')
             mitbbsId: '',
             paymentMethods: ''
           });
+          ref.child('methods').child(user.uid).push().set({paymentMethods: ''});
          authCtrl.login();
         }).catch(function (error) {
           authCtrl.error = error;

@@ -5,7 +5,7 @@
 angular.module('baoziApp')
     .controller('BusinessCtrl', function($scope, $mdDialog, $firebaseObject,
                                          $mdMedia, $firebaseArray, profile,
-                                         businesses){
+                                         businesses, methods){
       var authorizeRef = firebase.database().ref();
       var businessCtrl = this;
       $scope.query = {
@@ -39,6 +39,7 @@ angular.module('baoziApp')
         $scope.mitbbsId= profile.mitbbsId;
         $scope.uploadProduct = function () {
           businesses.$add(createProductJson());
+          console.log(businesses);
           $mdDialog.hide();
         };
         $scope.products = [
@@ -49,7 +50,8 @@ angular.module('baoziApp')
           'DELL i5759-2012SLV Laptop (-DELL-)',
           'Toshiba S55-C5274 Laptop (-Staples-)'
         ];
-        $scope.methods = profile.paymentMethod;
+        console.log(methods);
+        $scope.methods = methods;
       };
       var ConfirmCtrl = function ($scope, $firebaseObject, selectedBusinesses,
                                   businesses) {

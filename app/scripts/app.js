@@ -211,8 +211,11 @@ angular
           businesses: function (Businesses) {
             return Businesses.forBusiness().$loaded();
           },
-          methods: function (Methods) {
-            return Methods.forMethod().$loaded();
+          methods: function (Methods, Auth) {
+            return Auth.$requireSignIn().then(function (firebaseUser) {
+              console.log(firebaseUser);
+              return Methods.forMethod(firebaseUser.uid).$loaded();
+            })
           }
         }
       })
@@ -242,7 +245,16 @@ angular
             return Auth.$requireSignIn().then(function (firebaseUser) {
               return Users.getProfile(firebaseUser.uid).$loaded();
             });
+          },
+          methods: function (Methods, Auth) {
+            return Auth.$requireSignIn().then(function (firebaseUser) {
+              console.log(firebaseUser);
+              return Methods.forMethod(firebaseUser.uid).$loaded();
+            })
           }
+          //methods: function (Methods) {
+          //  return Methods.forMethod().$loaded();
+          //}
         }
       });
   });
