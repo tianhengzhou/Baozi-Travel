@@ -37,17 +37,22 @@
     </md-card-content>
   </md-card>
 </div>
+<md-button  layout="row" class="md-default md-raised"
+           ng-click="profileCtrl.showDialogPaymentMethod($event)">
+  <i class="fa fa-plus-circle"></i>
+  <span>添加支付方式</span>
+</md-button>
 <div layout="row">
-  <md-button class="md-primary md-raised"
-  ng-click="profileCtrl.showDialogPaymentMethod($event)">
-  添加支付方式</md-button>
   <md-card ng-repeat="method in profileCtrl.methods">
-    <md-card-content>
-      <textarea ng-model="method.paymentMethods" rows="5"></textarea>
-      <md-button ng-click="profileCtrl.updateMethod($index, method)">Update the payment
-        method</md-button>
-      <md-button ng-click="profileCtrl.deleteMethod($index)">Delete the payment
-        method</md-button>
+    <md-card-content layout="column">
+      <md-input-container class="md-block">
+        <label>Paymemt Method</label>
+        <textarea ng-model="method.paymentMethods" rows="4" md-select-on-focus></textarea>
+      </md-input-container>
+      <div layout="row">
+        <md-button ng-click="profileCtrl.updateMethod(method)">Update</md-button>
+        <md-button ng-click="profileCtrl.deleteMethod(method)">Delete</md-button>
+      </div>
     </md-card-content>
   </md-card>
 </div>
