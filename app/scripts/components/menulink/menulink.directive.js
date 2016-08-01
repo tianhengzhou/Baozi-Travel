@@ -10,30 +10,30 @@ angular.module('baoziApp')
         icon: '&#xE55B;',
         awesome_icon: 'fa fa-user'
       },
-      {
-        name: 'Food Map',
-        link: 'panel.map',
-        icon: '&#xE55B;',
-        awesome_icon: 'fa fa-cutlery'
-      },
-      {
-        name: 'Meet Up',
-        link: 'panel.meetup',
-        icon: '&#xE8CB;',
-        awesome_icon: 'fa fa-calendar'
-      },
+      // {
+      //   name: 'Food Map',
+      //   link: 'panel.map',
+      //   icon: '&#xE55B;',
+      //   awesome_icon: 'fa fa-cutlery'
+      // },
+      // {
+      //   name: 'Meet Up',
+      //   link: 'panel.meetup',
+      //   icon: '&#xE8CB;',
+      //   awesome_icon: 'fa fa-calendar'
+      // },
       {
         name: 'Business',
         link: 'panel.business',
         icon: '&#xEB3F;',
         awesome_icon: 'fa fa-briefcase'
       },
-      {
-        name: 'Travel Blog',
-        link: 'panel.blog',
-        icon: '&#xE87A;',
-        awesome_icon: 'fa fa-suitcase'
-      },
+      // {
+      //   name: 'Travel Blog',
+      //   link: 'panel.blog',
+      //   icon: '&#xE87A;',
+      //   awesome_icon: 'fa fa-suitcase'
+      // },
       {
         name: 'Happy Chat',
         link: 'panel.chat',
