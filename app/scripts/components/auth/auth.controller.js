@@ -29,6 +29,7 @@ angular.module('baoziApp')
             emailHash: md5.createHash(authCtrl.user.email),
             mitbbsId: ''
           });
+          ref.child('methods').child(user.uid).push().set({paymentMethods: ''});
          authCtrl.login();
         }).catch(function (error) {
           authCtrl.error = error;

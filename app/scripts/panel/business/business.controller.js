@@ -39,6 +39,7 @@ angular.module('baoziApp')
         $scope.mitbbsId= profile.mitbbsId;
         $scope.uploadProduct = function () {
           businesses.$add(createProductJson());
+          console.log(businesses);
           $mdDialog.hide();
         };
         $scope.products = [
@@ -49,26 +50,8 @@ angular.module('baoziApp')
           'DELL i5759-2012SLV Laptop (-DELL-)',
           'Toshiba S55-C5274 Laptop (-Staples-)'
         ];
+        console.log(methods);
         $scope.methods = methods;
-      };
-      var MethodCtrl = function ($scope) {
-        var updateFlag = false;
-        $scope.methods = methods;
-        $scope.writeMethod = function (method) {
-          $scope.paymentMethod = method;
-          updateFlag = true;
-        };
-        $scope.cancel = function () {
-          $mdDialog.cancel();
-        };
-        $scope.savePaymentMethod = function () {
-          if (updateFlag){
-            methods.$save($scope.paymentMethod);
-          }else{
-            methods.$add($scope.paymentMethod);
-          }
-          $mdDialog.hide();
-        };
       };
       var ConfirmCtrl = function ($scope, $firebaseObject, selectedBusinesses,
                                   businesses) {
@@ -116,17 +99,7 @@ angular.module('baoziApp')
           fullscreen: useFullScreen
         });
       };
-      businessCtrl.showDialogPaymentMethod = function (event) {
-        var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
-        $mdDialog.show({
-          controller: MethodCtrl,
-          templateUrl: 'templates/panel/business/business.payment.method.html',
-          parent: angular.element(document.body),
-          targetEvent: event,
-          clickOutsideToClose: true,
-          fullscreen: useFullScreen
-        });
-      };
+
       businessCtrl.showDialogPaymentConfirmation = function (event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         $mdDialog.show({

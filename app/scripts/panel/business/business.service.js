@@ -11,14 +11,4 @@ angular.module('baoziApp')
         },
         all: businessRef
       };
-    })
-    .factory('Methods', function ($firebaseArray) {
-      var methodRef = firebase.database().ref().child('methods');
-      return {
-        forMethod: function () {
-          return $firebaseArray(methodRef);
-        },
-        all: methodRef
-      }
-
     });

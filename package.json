@@ -51,6 +51,7 @@
     "karma": "^1.1.0",
     "lodash": "^4.6.1",
     "mongoose": "^4.1.2",
+    "node-sass": "^3.8.0",
     "num2fraction": "^1.2.2",
     "serve-favicon": "^2.3.0"
   }
