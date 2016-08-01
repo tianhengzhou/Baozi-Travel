@@ -54,6 +54,7 @@
 <body ng-app="baoziApp">
 <ui-view></ui-view>
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 <script>
   !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
@@ -63,8 +64,36 @@
   ga('create', 'UA-XXXXX-X');
   ga('send', 'pageview');
 </script>
-<script src="scripts/vendor-b913b05e98.js"></script>
-<script src="scripts/app-e1f860a8a4.js"></script>
+<script src="scripts/vendor-d5764cfea3.js"></script>
+<script src="scripts/app-e86c53909f.js"></script>
+<script>
+  angular.module('baoziApp')
+    .directive('googleplace', function () {
+      return {
+        require: "ngModel",
+        link: function (scope, element, attrs, model) {
+          var options = {
+            types: [],
+            componentRestrictions: {}
+          };
+          scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
+          console.log(scope.gPlace);
+          scope.gPlace.addListener('place_changed', function () {
+            var geoComponents = scope.gPlace.getPlace();
+            console.log(geoComponents);
+            var lat = geoComponents.geometry.location.lat();
+            var lng = geoComponents.geometry.location.lng();
+            var detailLoc = [];
+            detailLoc.push(lat, lng);
+            scope.detailLoc = detailLoc;
+            scope.$apply(function () {
+              model.$setViewValue(element.val());
+            });
+          });
+        }
+      };
+    });
+</script>
 </body>
 </html>
 
