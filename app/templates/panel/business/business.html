@@ -2,16 +2,21 @@
     <md-button class="md-primary md-raised"
                ng-click="businessCtrl.showDialogInventory($event)">
         提交入库</md-button>
-    <!--<md-button class="md-primary md-raised"-->
-    <!--ng-click="businessCtrl.showDialogPaymentMethod($event)">-->
-    <!--添加/修改支付方式</md-button>-->
     <md-button class="md-primary md-raised"
                ng-click="businessCtrl.showDialogPaymentConfirmation($event)">
-        确认已付款且以收到货物</md-button>
+        添加产品种类</md-button>
+    <md-button class="md-primary md-raised"
+               ng-click="businessCtrl.showDialogPaymentConfirmation($event)">
+        确认已付款</md-button>
+    <md-button class="md-primary md-raised"
+               ng-click="businessCtrl.showDialogPaymentConfirmation($event)">
+        确认已收货</md-button>
+    <md-switch ng-model="data" ng-change="businessCtrl.showDialogPaymentConfirmation($event)"></md-switch>
 </div>
 <!--<div layout="row" layout-padding="" layout-margin="">-->
     <!---->
 <!--</div>-->
+<span>{{businesses.sum()}}</span>
 <md-card>
     <md-toolbar class="md-table-toolbar md-default">
         <div class="md-toolbar-tools">
@@ -33,6 +38,7 @@
                     <th md-column>Zip Code</th>
                     <th md-column>Payment Method</th>
                     <th md-column md-order-by="paid">Paid Confirmation</th>
+                    <th md-column md-order-by="paid">Delivered Confirmation</th>
                 </tr>
             </thead>
             <tbody md-body>
@@ -47,6 +53,7 @@
                 <td md-cell>{{business.location}}</td>
                 <td md-cell>{{business.zipCode}}</td>
                 <td md-cell>{{business.paymentMethod}}</td>
+                <td md-cell>{{business.paid}}</td>
                 <td md-cell>{{business.paid}}</td>
             </tr>
             </tbody>

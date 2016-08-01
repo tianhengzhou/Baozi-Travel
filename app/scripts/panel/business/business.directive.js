@@ -11,3 +11,8 @@ angular.module('baoziApp')
         templateUrl: 'templates/panel/business/business.create.html'
       };
     });
+
+//     var list = new ArrayWithSum(ref);
+// list.$loaded().then(function() {
+//   console.log("List has " + list.sum() + " items");
+// });

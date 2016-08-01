@@ -15,6 +15,7 @@ angular.module('baoziApp')
         page: 1
       };
       $scope.businesses = businesses;
+      console.log(businesses);
       $scope.selected = [];
       $scope.logItem = function (item) {
         console.log(item.$id, 'was selected');
