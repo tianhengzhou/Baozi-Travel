@@ -21,6 +21,9 @@ angular.module('baoziApp')
         console.log(item.$id, 'was selected');
       };
       console.log($scope.selected);
+      $scope.isadmin = profile.role === 'admin';
+      console.debug($scope.isadmin);
+      $scope.isshenyi = profile.role === 'shenyi';
       var InventoryCtrl = function ($scope) {
         var createProductJson = function () {
           return {
@@ -31,7 +34,8 @@ angular.module('baoziApp')
             'location': $scope.location,
             'zipCode': $scope.zipCode,
             'paymentMethod': $scope.paymentMethod,
-            'paid': false
+            'paid': false,
+            'delivered': false
           };
         };
         $scope.cancel = function () {

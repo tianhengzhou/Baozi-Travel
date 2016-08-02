@@ -2,16 +2,17 @@
     <md-button class="md-primary md-raised"
                ng-click="businessCtrl.showDialogInventory($event)">
         提交入库</md-button>
-    <md-button class="md-primary md-raised"
+    <md-button class="md-primary md-raised" ng-disabled="!(isadmin || isshenyi)"
                ng-click="businessCtrl.showDialogPaymentConfirmation($event)">
         添加产品种类</md-button>
-    <md-button class="md-primary md-raised"
+    <md-button class="md-primary md-raised" ng-disabled="!(isadmin || isshenyi)"
                ng-click="businessCtrl.showDialogPaymentConfirmation($event)">
         确认已付款</md-button>
-    <md-button class="md-primary md-raised"
+    <md-button class="md-primary md-raised" ng-disabled="!(isadmin || isshenyi)"
                ng-click="businessCtrl.showDialogPaymentConfirmation($event)">
         确认已收货</md-button>
-    <md-switch ng-model="data" ng-change="businessCtrl.showDialogPaymentConfirmation($event)"></md-switch>
+    <md-switch  ng-model="data" ng-disabled="!(isadmin || isshenyi)"
+                ng-change="businessCtrl.showDialogPaymentConfirmation($event)"></md-switch>
 </div>
 <!--<div layout="row" layout-padding="" layout-margin="">-->
     <!---->
