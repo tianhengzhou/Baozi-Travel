@@ -12,6 +12,15 @@ angular.module('baoziApp')
         all: businessRef
       };
     })
+    .factory('Products', function ($firebaseArray) {
+      var productRef = firebase.database().ref().child('products');
+      return {
+        forProduct: function () {
+          return $firebaseArray(productRef);
+        },
+        all: productRef
+      };
+    })
     .factory("ArrayWithSum", function($firebaseArray) {
       return $firebaseArray.$extend({
         sum: function() {

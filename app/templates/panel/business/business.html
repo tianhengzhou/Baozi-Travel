@@ -1,6 +1,7 @@
 <div layout="row" layout-padding layout-margin>
     <md-button class="md-primary md-raised"
-               ng-click="businessCtrl.showDialogInventory($event)" ng-disabled="isDisabled.$value">
+               ng-click="businessCtrl.showDialogInventory($event)"
+               ng-disabled="isDisabled.$value">
         提交入库</md-button>
     <md-button class="md-primary md-raised" ng-disabled="!(isadmin || isshenyi)"
                ng-click="businessCtrl.showDialogAddProduct($event)">
@@ -12,7 +13,9 @@
                ng-click="businessCtrl.showDialogDeliveredConfirmation($event)">
         确认已收货</md-button>
     <md-switch  ng-model="status" ng-disabled="!(isadmin || isshenyi)"
-                ng-change="toggledisableAdd()">{{ '提交已' + (!status ? '开启': '关闭')}}</md-switch>
+                ng-change="toggledisableAdd()">
+        {{ '提交已' + (!status ? '开启': '关闭')}}
+    </md-switch>
 </div>
 <!--<div layout="row" layout-padding="" layout-margin="">-->
     <!---->
@@ -30,8 +33,12 @@
                md-progress="businessCtrl.businesses">
             <thead md-head md-order="query.order">
                 <tr md-row>
-                    <th md-column md-order-by="mitbbsId"><span>Mitbbs ID</span></th>
-                    <th md-column md-order-by="product"><span>Product Name</span></th>
+                    <th md-column md-order-by="mitbbsId">
+                        <span>Mitbbs ID</span>
+                    </th>
+                    <th md-column md-order-by="product">
+                        <span>Product Name</span>
+                    </th>
                     <th md-column md-numeric md-order-by="price">Price</th>
                     <th md-column md-numeric>Quantity</th>
                     <th md-column md-numeric>Total Price</th>

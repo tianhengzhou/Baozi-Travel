@@ -213,9 +213,11 @@ angular
           },
           methods: function (Methods, Auth) {
             return Auth.$requireSignIn().then(function (firebaseUser) {
-              console.log(firebaseUser);
               return Methods.forMethod(firebaseUser.uid).$loaded();
             })
+          },
+          products: function (Products) {
+            return Products.forProduct().$loaded();
           }
         }
       })

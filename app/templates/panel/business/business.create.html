@@ -30,21 +30,20 @@
                     <md-select name="product" ng-model="product"
                                required>
                         <md-option ng-repeat="product in products"
-                                   value="{{product}}">{{product}}</md-option>
+                                   ng-click="writePrice(product)"
+                                   value="{{product.product_name}}">
+                            {{product.product_name}}</md-option>
                     </md-select>
                     <div ng-messages="eventForm.product.$error">
-                        <div ng-message="required">The product is required
+                        <div ng-message="required">The product name is required
                             .</div>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>物品价格</label>
-                    <input name="price" type="number" ng-model="price"
+                    <input name="price" type="number" ng-disabled="true"
+                           ng-model="price"
                            required/>
-                    <div ng-messages="eventForm.price.$error"
-                         ng-show="eventForm.price.$touched||eventForm.price.$submitted">
-                        <div ng-message="required">The price is required.</div>
-                    </div>
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>物品数量</label>
