@@ -1,18 +1,18 @@
 <div layout="row" layout-padding layout-margin>
     <md-button class="md-primary md-raised"
-               ng-click="businessCtrl.showDialogInventory($event)">
+               ng-click="businessCtrl.showDialogInventory($event)" ng-disabled="isDisabled.$value">
         提交入库</md-button>
     <md-button class="md-primary md-raised" ng-disabled="!(isadmin || isshenyi)"
-               ng-click="businessCtrl.showDialogPaymentConfirmation($event)">
+               ng-click="businessCtrl.showDialogAddProduct($event)">
         添加产品种类</md-button>
     <md-button class="md-primary md-raised" ng-disabled="!(isadmin || isshenyi)"
                ng-click="businessCtrl.showDialogPaymentConfirmation($event)">
         确认已付款</md-button>
     <md-button class="md-primary md-raised" ng-disabled="!(isadmin || isshenyi)"
-               ng-click="businessCtrl.showDialogPaymentConfirmation($event)">
+               ng-click="businessCtrl.showDialogDeliveredConfirmation($event)">
         确认已收货</md-button>
-    <md-switch  ng-model="data" ng-disabled="!(isadmin || isshenyi)"
-                ng-change="businessCtrl.showDialogPaymentConfirmation($event)"></md-switch>
+    <md-switch  ng-model="status" ng-disabled="!(isadmin || isshenyi)"
+                ng-change="toggledisableAdd()">{{ '提交已' + (!status ? '开启': '关闭')}}</md-switch>
 </div>
 <!--<div layout="row" layout-padding="" layout-margin="">-->
     <!---->
@@ -39,7 +39,7 @@
                     <th md-column>Zip Code</th>
                     <th md-column>Payment Method</th>
                     <th md-column md-order-by="paid">Paid Confirmation</th>
-                    <th md-column md-order-by="paid">Delivered Confirmation</th>
+                    <th md-column md-order-by="delivered">Delivered Confirmation</th>
                 </tr>
             </thead>
             <tbody md-body>
@@ -55,7 +55,7 @@
                 <td md-cell>{{business.zipCode}}</td>
                 <td md-cell>{{business.paymentMethod}}</td>
                 <td md-cell>{{business.paid}}</td>
-                <td md-cell>{{business.paid}}</td>
+                <td md-cell>{{business.delivered}}</td>
             </tr>
             </tbody>
         </table>

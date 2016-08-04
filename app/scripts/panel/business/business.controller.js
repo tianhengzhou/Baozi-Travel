@@ -20,9 +20,21 @@ angular.module('baoziApp')
       $scope.logItem = function (item) {
         console.log(item.$id, 'was selected');
       };
+      var obj = $firebaseObject(authorizeRef.child('isDisabled'));
+      obj.$bindTo($scope, 'isDisabled').then(function () {
+        $scope.status = $scope.isDisabled.$value;
+        $scope.toggledisableAdd = function () {
+          if ($scope.isDisabled.$value === true){
+            $scope.isDisabled.$value = false;
+            $scope.status = false;
+          }else{
+            $scope.isDisabled.$value = true;
+            $scope.status = true;
+          }
+        };
+      });
       console.log($scope.selected);
       $scope.isadmin = profile.role === 'admin';
-      console.debug($scope.isadmin);
       $scope.isshenyi = profile.role === 'shenyi';
       var InventoryCtrl = function ($scope) {
         var createProductJson = function () {
