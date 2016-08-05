@@ -35,7 +35,8 @@ angular.module('baoziApp')
       });
       $scope.isadmin = profile.role === 'admin';
       $scope.isshenyi = profile.role === 'shenyi';
-      var inventoryCtrl = function ($scope) {
+      var DialogCtrl = function ($scope, $firebaseObject, selectedBusinesses, businesses,
+          confirmTarget) {
         var createProductJson = function () {
           return {
             'mitbbsId': $scope.mitbbsId,
@@ -49,21 +50,6 @@ angular.module('baoziApp')
             'delivered': false
           };
         };
-        $scope.cancel = function () {
-          $mdDialog.cancel();
-        };
-        $scope.mitbbsId= profile.mitbbsId;
-        $scope.products = products;
-        $scope.methods = methods;
-        $scope.uploadProduct = function () {
-          businesses.$add(createProductJson());
-          $mdDialog.hide();
-        };
-        $scope.writePrice = function (product) {
-          $scope.price = parseInt(product.product_price);
-        };
-      };
-      var addProductCtrl = function ($scope, products) {
         var createProductKindJson = function () {
           return {
             'product_name': $scope.name,
@@ -71,46 +57,55 @@ angular.module('baoziApp')
           };
         };
         var updateFlag = false;
-        console.log(products);
+        $scope.cancel = function () {
+          $mdDialog.cancel();
+        };
+        $scope.mitbbsId= profile.mitbbsId;
         $scope.products = products;
+        $scope.methods = methods;
+        $scope.confirmTarget = confirmTarget;
+        $scope.uploadProduct = function () {
+          businesses.$add(createProductJson());
+          $mdDialog.hide();
+        };
+        $scope.writePrice = function (product) {
+          $scope.price = parseInt(product.product_price);
+        };
         $scope.modifyProduct = function (product) {
           $scope.updateProduct = product;
           $scope.name = product.product_name;
           $scope.price = product.product_price;
           updateFlag = true;
         };
-        $scope.cancel = function () {
-          $mdDialog.cancel();
-        };
         $scope.saveProduct = function () {
           if (updateFlag){
+            $scope.updateProduct.product_name = $scope.name;
+            $scope.updateProduct.product_price = $scope.price;
             products.$save($scope.updateProduct);
           }else{
             products.$add(createProductKindJson());
           }
           $mdDialog.hide();
         };
-      };
-      var paymentConfirmCtrl = function ($scope, $firebaseObject,
-                                         selectedBusinesses, businesses) {
-        $scope.cancel = function () {
-          $mdDialog.cancel();
-        };
-        function confirmPayment(business) {
-          console.debug(business);
-          if (!business.paid){
-            business.paid = new Date().toDateString();
-            businesses.$save(business);
-            console.debug(business);
+        function Confirm(business) {
+          if ($scope.confirmTarget === 'payment'){
+            if (!business.paid){
+              business.paid = new Date().toDateString();
+              businesses.$save(business);
+            }
+          }else if ($scope.confirmTarget === 'delivery'){
+            if (!business.delivered){
+              business.delivered = new Date().toDateString();
+              businesses.$save(business);
+            }
           }
         }
         function success(item){
-          console.debug(item);
           if (selectedBusinesses.length > 0){
             if (item.$value === null){
               $scope.error = 'Invalid Secret.';
             }else{
-              selectedBusinesses.forEach(confirmPayment);
+              selectedBusinesses.forEach(Confirm);
               $mdDialog.cancel();
             }
           }else{
@@ -122,90 +117,58 @@ angular.module('baoziApp')
         }
         $scope.authorizeUser = function() {
           $firebaseObject(authorizeRef.child(
-            $scope.secret)).$loaded().then(success, error);
-        };
-      };
-      var deliveryConfirmCtrl = function ($scope, $firebaseObject,
-                                          selectedBusinesses, businesses) {
-        $scope.cancel = function () {
-          $mdDialog.cancel();
-        };
-
-        function confirmDelivery(business){
-          if (!business.delivered){
-            business.delivered = new Date().toDateString();
-            businesses.$save(business);
-          }
-        }
-        function success(item){
-          console.debug(item);
-          if (selectedBusinesses.length > 0){
-            if (item.$value === null){
-              $scope.error = 'Invalid Secret.';
-            }else{
-              selectedBusinesses.forEach(confirmDelivery);
-              $mdDialog.cancel();
-            }
-          }else{
-            $scope.error = 'You need at least select one record.';
-          }
-
-        }
-        function error(){
-          $scope.error = 'Invalid Secret.';
-        }
-        $scope.authorizeUser = function() {
-          $firebaseObject(authorizeRef.child(
-            $scope.secret)).$loaded().then(success, error);
+              $scope.secret)).$loaded().then(success, error);
         };
       };
       businessCtrl.showDialogInventory = function (event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         $mdDialog.show({
-          controller: inventoryCtrl,
+          controller: DialogCtrl,
           templateUrl: 'templates/panel/business/business.create.html',
           parent: angular.element(document.body),
           targetEvent: event,
           clickOutsideToClose: true,
+          locals: { selectedBusinesses: $scope.selected ,
+            businesses: $scope.businesses, products: products, confirmTarget: ''},
           fullscreen: useFullScreen
         });
       };
       businessCtrl.showDialogAddProduct = function (event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         $mdDialog.show({
-          controller: addProductCtrl,
+          controller: DialogCtrl,
           templateUrl: 'templates/panel/business/business.product.html',
           parent: angular.element(document.body),
           targetEvent: event,
           clickOutsideToClose: true,
           locals: { selectedBusinesses: $scope.selected ,
-            businesses: $scope.businesses, products: products},
+            businesses: $scope.businesses, products: products, confirmTarget: ''},
           fullscreen: useFullScreen
         });
       };
       businessCtrl.showDialogPaymentConfirmation = function (event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         $mdDialog.show({
-          controller: paymentConfirmCtrl,
+          controller: DialogCtrl,
           templateUrl: 'templates/panel/business/business.payment.confirm.html',
           parent: angular.element(document.body),
           targetEvent: event,
           clickOutsideToClose: true,
           locals: { selectedBusinesses: $scope.selected ,
-            businesses: $scope.businesses},
+            businesses: $scope.businesses, confirmTarget: 'payment'},
           fullscreen: useFullScreen
         });
       };
       businessCtrl.showDialogDeliveredConfirmation = function (event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         $mdDialog.show({
-          controller: deliveryConfirmCtrl,
+          controller: DialogCtrl,
           templateUrl: 'templates/panel/business/business.delivery.confirm.html',
           parent: angular.element(document.body),
           targetEvent: event,
           clickOutsideToClose: true,
           locals: { selectedBusinesses: $scope.selected ,
-            businesses: $scope.businesses},
+            businesses: $scope.businesses, confirmTarget: 'delivery'},
           fullscreen: useFullScreen
         });
       };
