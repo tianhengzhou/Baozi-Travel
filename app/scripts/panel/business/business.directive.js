@@ -4,15 +4,21 @@
 
 "use strict";
 angular.module('baoziApp')
-    .directive('meetupCreate',function () {
-      return {
-        restrict: 'E',
-        replace: true,
-        templateUrl: 'templates/panel/business/business.create.html'
-      };
-    });
-
-//     var list = new ArrayWithSum(ref);
-// list.$loaded().then(function() {
-//   console.log("List has " + list.sum() + " items");
-// });
+  .directive('meetupCreate',function () {
+    return {
+      restrict: 'E',
+      replace: true,
+      templateUrl: 'templates/panel/business/business.create.html'
+    };
+  })
+  .directive('donutChart', function () {
+    return{
+      scope:{
+        
+      },
+      restrict: 'E',
+      replace: true,
+      templateUrl: 'templates/panel/business/donut.html'
+    }
+  });
+    

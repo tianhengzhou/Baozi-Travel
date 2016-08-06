@@ -12,11 +12,17 @@ angular.module('baoziApp')
         email: '',
         password: ''
       };
+      authCtrl.guestLogin = function () {
+        Auth.$signInAnonymously().then(function (firebaseUser) {
+          $state.go('panel.profile');
+        }, function (err) {
+          authCtrl.error = err;
+        })
+      };
       authCtrl.login = function () {
         Auth.$signInWithEmailAndPassword(authCtrl.user.email,
           authCtrl.user.password).then(function (firebaseUser) {
           $state.go('panel.profile');
-
         }, function (err) {
           authCtrl.error = err;
         });
