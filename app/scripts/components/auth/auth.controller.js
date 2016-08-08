@@ -13,8 +13,11 @@ angular.module('baoziApp')
         password: ''
       };
       authCtrl.guestLogin = function () {
-        Auth.$signInAnonymously().then(function (firebaseUser) {
+        Auth.$signInAnonymously().then(function (user) {
           $state.go('panel.profile');
+          ref.child('users').child(user.uid).set({
+            role: 'guest'
+          })
         }, function (err) {
           authCtrl.error = err;
         })

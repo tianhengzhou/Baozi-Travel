@@ -10,15 +10,4 @@ angular.module('baoziApp')
       replace: true,
       templateUrl: 'templates/panel/business/business.create.html'
     };
-  })
-  .directive('donutChart', function () {
-    return{
-      scope:{
-        
-      },
-      restrict: 'E',
-      replace: true,
-      templateUrl: 'templates/panel/business/donut.html'
-    }
   });
-    

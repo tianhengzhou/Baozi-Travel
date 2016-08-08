@@ -5,9 +5,8 @@
 
 angular
   .module('baoziApp')
-  .controller('SidenavController',['$scope', '$state', '$timeout', '$mdSidenav',
-    '$log', 'Users', 'Auth', function ($scope, $state, $timeout, $mdSidenav,
-                                       $log, Users, Auth) {
+  .controller('SidenavController',function ($scope, $state, $timeout,
+                                            $mdSidenav, $log, Users, Auth) {
       // var sidenavController = this;
       var profile = function (Users, Auth) {
         return Auth.$requireSignIn().then(function (firebaseUser) {
@@ -23,16 +22,27 @@ angular
       });
       $scope.logout = function () {
         profile.then(function (data) {
-          Auth.$signOut();
-          data.online = null;
-          data.$save().then(function () {
-            $state.go('home');
-          });
+          if (data.role === 'guest'){
+            console.log(data);
+            data.$remove();
+            Auth.$deleteUser().then(function() {
+              $state.go('home');
+              console.debug("User removed successfully!");
+            }).catch(function(error) {
+              console.error("Error: ", error);
+            });
+          }else{
+            Auth.$signOut();
+            data.online = null;
+            data.$save().then(function () {
+              $state.go('home');
+            });
+          }
         });
       };
       $scope.close = function () {
         $mdSidenav('left').close();
       };
-  }]);
+  });
 
 
