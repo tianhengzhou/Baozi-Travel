@@ -28,9 +28,6 @@
                ng-model="authCtrl.user.password"/>
       </md-input-container>
       <div layout="row" layout-align="center center" style="padding-top:20px;">
-        <md-button aria-label="Guest Login" ng-click="authCtrl.guestLogin()" class="md-raised md-primary">
-          Guest Login
-        </md-button>
         <md-button aria-label="{{isLogin ? 'Login' : 'Register'}}" type="submit" class="md-raised md-primary">
           {{isLogin ? 'Login' : 'Register'}}
         </md-button>
@@ -40,6 +37,9 @@
         </md-button>
         <div flex="flex"></div>
       </div>
+      <md-button aria-label="Guest Login" ng-click="authCtrl.guestLogin()" class="md-raised md-primary">
+        Guest Login
+      </md-button>
     </md-card-content>
   </md-card>
 </form>

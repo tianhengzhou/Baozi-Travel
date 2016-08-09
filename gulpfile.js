@@ -3,6 +3,7 @@
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var babel = require('gulp-babel');
 var openURL = require('open');
 var lazypipe = require('lazypipe');
 var rimraf = require('rimraf');
@@ -104,7 +105,9 @@ gulp.task('start:server:test', function() {
     port: 9001
   });
 });
-
+// gulp.task('babel', function () {
+//   var
+// });
 gulp.task('watch', function () {
 
   $.watch(paths.styles, function() {  //['inject:scss']
