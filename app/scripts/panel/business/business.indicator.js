@@ -9,11 +9,22 @@ angular.module('baoziApp')
       replace: true,
       transclude: true,
       controller: function ($scope, $element, $attrs) {
-        var diff = ($scope.expected - $scope.actual)/$scope.expected,
-            canvasWidth = $element.attr('width'),
-            canvasHeight = $element.attr('height'),
-            circle = $element.find('circle')[0],
-            baseRadius = circle.r.baseVal.value;
+        var diff = ($scope.expected - $scope.actual)/$scope.expected;
+        $scope.raduis = $element.find('circle')[0].r.baseVal.value;
+        $scope.canvasWidth = $element.attr('width');
+        $scope.canvasHeight = $element.attr('height');
+        $scope.spacing = 0.9;
+        function convertToRads(angle) {
+          return angle*(Math.PI/180);
+        }
+        function findDegress(percentage) {
+          return 360*percentage;
+        }
+        function getArcValues(index, radius, spacing) {
+          return {
+            innerRadius: (index)
+          }
+        }
       }
     };
 

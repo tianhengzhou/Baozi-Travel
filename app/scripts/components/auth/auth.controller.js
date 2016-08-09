@@ -16,15 +16,17 @@ angular.module('baoziApp')
         Auth.$signInAnonymously().then(function (user) {
           $state.go('panel.profile');
           ref.child('users').child(user.uid).set({
+            displayName: 'Guest-' + user.uid.substring(0,5),
+            emailHash: md5.createHash('Guest-' + user.uid.substring(0,5)),
             role: 'guest'
-          })
+          });
         }, function (err) {
           authCtrl.error = err;
-        })
+        });
       };
       authCtrl.login = function () {
         Auth.$signInWithEmailAndPassword(authCtrl.user.email,
-          authCtrl.user.password).then(function (firebaseUser) {
+          authCtrl.user.password).then(function () {
           $state.go('panel.profile');
         }, function (err) {
           authCtrl.error = err;
