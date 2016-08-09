@@ -10,6 +10,5 @@ angular.module('baoziApp')
       return $firebaseArray(methodRef.child(uid));
     },
     all: methodRef
-  }
-
+  };
 });

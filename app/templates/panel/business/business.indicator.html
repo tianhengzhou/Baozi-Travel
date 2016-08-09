@@ -1,0 +1,23 @@
+<svg class="indicator-circle"
+     width="150" height="150"
+     version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+    <g>
+        <circle cx="50%" cy="50%" r="45" />
+        <text class="progress-text actual" text-anchor="middle" alignment-baseline="middle" dx="50%" dy="50%">
+            <tspan class="actual">{{ ((submitCount/ expected) *
+                100).toFixed(0) }}</tspan>
+            <tspan class="percent">%</tspan>
+        </text>
+        <text class="progress-text" text-anchor="middle"
+              alignment-baseline="middle" dx="50%" dy="60%">Fulfill</text>
+    </g>
+    <g path-group>
+        <path class="progress-bar inner-bar normal" stroke-linejoin="round"
+              delivery-path/>
+        <path class="progress-bar inner-bar normal" stroke-linejoin="round"
+              paid-path />
+        <path class="progress-bar outer-bar" stroke-linejoin="round"
+              general-path />
+    </g>
+</svg>

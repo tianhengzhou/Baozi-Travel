@@ -18,6 +18,9 @@
     </md-switch>
 </div>
 <span>{{businesses.sum()}}</span>
+<indicator-donut class="widget-container"
+     expected="100"
+     submit-count="{{businesses.sum()}}" paid-count="20" delivery-count="10" ></indicator-donut>
 <md-card>
     <md-toolbar class="md-table-toolbar md-default">
         <div class="md-toolbar-tools">

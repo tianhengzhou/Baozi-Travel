@@ -42,13 +42,12 @@ angular
         templateUrl: 'templates/weather/weather.html',
         controller: 'WeatherCtrl as weather',
         resolve: {
-          requireNoAuth: function ($state, $q, Auth) {
+          requireNoAuth: function ($state, Auth) {
             return Auth.$requireSignIn()
               .then(function () {
               $state.go('panel.profile');
               }).catch(function (error) {
-                  console.debug(error);
-                console.debug('No Auth');
+                console.error(error);
             });
           }
         }
@@ -75,7 +74,7 @@ angular
             // process the success handler.
             return Auth.$requireSignIn().catch(function () {
               $state.go('home');
-              console.log('No User');
+              console.error('No User');
             });
           }
         }
@@ -98,7 +97,7 @@ angular
                 }
               });
             }, function (error) {
-              console.log(error);
+              console.error(error);
               $state.go('home');
             });
           }
@@ -158,7 +157,7 @@ angular
                 }
               });
             }, function (error) {
-              console.log(error);
+              console.error(error);
               $state.go('home');
             });
           }
@@ -179,7 +178,7 @@ angular
                 }
               });
             }, function (error) {
-              console.log(error);
+              console.error(error);
               $state.go('home');
             });
           },
@@ -214,7 +213,7 @@ angular
           methods: function (Methods, Auth) {
             return Auth.$requireSignIn().then(function (firebaseUser) {
               return Methods.forMethod(firebaseUser.uid).$loaded();
-            })
+            });
           },
           products: function (Products) {
             return Products.forProduct().$loaded();
@@ -250,9 +249,8 @@ angular
           },
           methods: function (Methods, Auth) {
             return Auth.$requireSignIn().then(function (firebaseUser) {
-              console.log(firebaseUser);
               return Methods.forMethod(firebaseUser.uid).$loaded();
-            })
+            });
           }
           //methods: function (Methods) {
           //  return Methods.forMethod().$loaded();

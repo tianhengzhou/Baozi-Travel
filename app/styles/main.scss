@@ -81,3 +81,50 @@ html, body {
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
+
+.widget-container {
+  text-align: center;
+}
+
+.indicator-circle {
+  fill: #f1f1f1;
+}
+
+.progress-text {
+  fill: #A4A4A4;
+  font-size: 12px;
+}
+
+.progress-text .percent {
+  font-size: 18px;
+  fill: #5D5D5D;
+}
+
+.progress-text .actual {
+  font-size: 30px;
+  fill: #5D5D5D;
+}
+
+.progress-bar {
+  stroke: #000;
+  stroke-width: 3px;
+}
+
+.outer-bar {
+  stroke-width: 6px;
+}
+.green{
+  stroke: $palette-green-500;
+}
+
+.normal {
+  stroke: $palette-green-200;
+}
+
+.orange {
+  stroke: $palette-orange-500;
+}
+
+.red {
+  stroke: $palette-red-500;
+}

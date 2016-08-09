@@ -17,7 +17,7 @@ angular.module('baoziApp')
           $state.go('panel.profile');
           ref.child('users').child(user.uid).set({
             displayName: 'Guest-' + user.uid.substring(0,5),
-            emailHash: md5.createHash('Guest-' + user.uid.substring(0,5)),
+            emailHash: user.uid,
             role: 'guest'
           });
         }, function (err) {
