@@ -1,0 +1,58 @@
+<md-dialog aria-label="Product Addition or Modification" ng-cloak="">
+    <form name="productForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>添加或修改产品</h2>
+                <span flex=""></span>
+                <md-button class="md-icon-button"
+                           ng-click="cancel()">
+                    <i class="material-icons" aria-label="Close">&#xE5C9;</i>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout="column" class="md-inline-form md-dialog-content"
+                 layout-padding="">
+                <md-input-container class="md-block">
+                    <label>产品种类</label>
+                    <md-select name="product" ng-model="product">
+                        <md-option ng-repeat="product in products"
+                                   value="{{product.product_name}}"
+                                   ng-click="modifyProduct(product)">{{
+                            product.product_name}}</md-option>
+                    </md-select>
+                    <div ng-messages="productForm.product.$error">
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>产品名</label>
+                    <input name="name"
+                              ng-model="name"
+                              required/>
+                    <div ng-messages="productForm.name.$error"
+                         ng-show="productForm.name.$touched ||
+                          productForm.name.$submitted">
+                        <div ng-message="required">
+                            The product name is required.
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>价格</label>
+                    <input name="price"
+                           ng-model="price"
+                           required/>
+                    <div ng-messages="productForm.price.$error"
+                         ng-show="productForm.price.$touched ||
+                          productForm.price.$submitted">
+                        <div ng-message="required">
+                            The product price is required.
+                        </div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+    </form>
+    <md-button class="md-raised md-primary"
+               ng-click="saveProduct()">Save Payment Method</md-button>
+</md-dialog>

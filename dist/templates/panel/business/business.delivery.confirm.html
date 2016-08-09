@@ -1,0 +1,21 @@
+<md-dialog>
+    <md-dialog-content class="md-dialog-content">
+        <h2 class="md-title">确认已收货</h2>
+        <p>需要密码才能确认</p>
+        <p class="mdl-color-text--red" ng-if="error" layout="row" layout-align="center">
+            <md-icon>error_outline</md-icon>
+            <span>&nbsp; {{error}}</span>
+        </p>
+        <form name="authorize.form" ng-submit="authorizeUser()">
+            <md-input-container layout="row">
+                <label>Secret</label>
+                <input name="secret" type="password" ng-model="secret">
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <div class="md-actions">
+        <md-button class="md-primary" ng-click="authorizeUser()">
+            确认已收货</md-button>
+        <md-button class="md-primary" ng-click="cancel()">Close</md-button>
+    </div>
+</md-dialog>
