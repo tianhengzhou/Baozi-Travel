@@ -25,6 +25,17 @@ angular.module('baoziApp')
             outerRadius: (index + spacing)* radius
           };
         }
+        // console.log($scope.submitCount);
+        //
+        // $scope.$watch('deliveryCount', function () {
+        //   console.log('deliver increase');
+        //   $scope.drawArc()
+        // });
+        // $scope.$watch('paidCount', function () {
+        //   console.log('paid increase');
+        //
+        //   $scope.drawArc()
+        // });
         $scope.drawArc = function () {
           return d3
                   .svg
@@ -152,6 +163,8 @@ angular.module('baoziApp')
             percentage = scope.submitCount / scope.expected,
             innerArc = scope.getArcInfo(1.3, percentage, scope.radius, 0.15),
             end = innerArc.endAngle;
+        scope.percentage = scope.submitCount / scope.expected;
+        console.log(percentage);
         innerArc.endAngle = 0;
         arc
           .datum(innerArc)
@@ -163,6 +176,16 @@ angular.module('baoziApp')
             endAngle: end
           }, arcObject));
         element.addClass(scope.pathColor(percentage));
+        // scope.$watch('percentage', function () {
+        //   console.log('toal increase');
+        //   arc
+        //     .transition()
+        //     .delay(100)
+        //     .duration(2000)
+        //     .attrTween("d", scope.tweenArc({
+        //       endAngle: (360*percentage)*(Math.PI/180)
+        //     }, arcObject));
+        // });
       }
     };
   });

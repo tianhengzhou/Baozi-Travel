@@ -24,15 +24,43 @@ angular.module('baoziApp')
     .factory("ArrayWithSum", function($firebaseArray) {
       return $firebaseArray.$extend({
         sum: function() {
-          // var total = 0;
           var map = {};
           angular.forEach(this.$list, function(entry) {
             if (entry.product in map){
-              map[entry.product] += 1;
+              map[entry.product] += entry.quantity;
             }else{
-              map[entry.product] = 1;
+              map[entry.product] = entry.quantity;
             }
-            // total += 1;
+          });
+          return map;
+        },
+        sumP: function() {
+          var map = {};
+          angular.forEach(this.$list, function(entry) {
+            if (entry.product in map){
+              if (entry.paid){
+                map[entry.product] += entry.quantity;
+              }
+            }else{
+              if (entry.paid){
+                map[entry.product] = entry.quantity;
+              }
+            }
+          });
+          return map;
+        },
+        sumD: function() {
+          var map = {};
+          angular.forEach(this.$list, function(entry) {
+            if (entry.product in map){
+              if (entry.delivered){
+                map[entry.product] += entry.quantity;
+              }
+            }else{
+              if (entry.delivered){
+                map[entry.product] = entry.quantity;
+              }
+            }
           });
           return map;
         }
