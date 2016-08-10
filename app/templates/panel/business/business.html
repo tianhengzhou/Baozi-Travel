@@ -17,10 +17,17 @@
         {{ '提交已' + (!status ? '开启': '关闭')}}
     </md-switch>
 </div>
-<span>{{businesses.sum()}}</span>
-<indicator-donut class="widget-container"
-     expected="100"
-     submit-count="{{businesses.sum()}}" paid-count="20" delivery-count="10" ></indicator-donut>
+<!--<span>{{businesses.sum()}}</span>-->
+<div layout="row">
+    <md-card ng-repeat="(key, value) in businesses.sum()">
+        <span>{{key}}</span>
+        <indicator-donut class="widget-container"
+                         expected="100"
+                         submit-count="{{value}}" paid-count="10" delivery-count="10" ></indicator-donut>
+    </md-card>
+</div>
+
+
 <md-card>
     <md-toolbar class="md-table-toolbar md-default">
         <div class="md-toolbar-tools">

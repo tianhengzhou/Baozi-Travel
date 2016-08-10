@@ -24,11 +24,17 @@ angular.module('baoziApp')
     .factory("ArrayWithSum", function($firebaseArray) {
       return $firebaseArray.$extend({
         sum: function() {
-          var total = 0;
-          angular.forEach(this.$list, function() {
-            total += 1;
+          // var total = 0;
+          var map = {};
+          angular.forEach(this.$list, function(entry) {
+            if (entry.product in map){
+              map[entry.product] += 1;
+            }else{
+              map[entry.product] = 1;
+            }
+            // total += 1;
           });
-          return total;
+          return map;
         }
       });
     });
