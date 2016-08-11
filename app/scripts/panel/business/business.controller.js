@@ -34,8 +34,8 @@ angular.module('baoziApp')
       });
       $scope.isadmin = profile.role === 'admin';
       $scope.isshenyi = profile.role === 'shenyi';
-      var DialogCtrl = function ($scope, $firebaseObject, selectedBusinesses, businesses,
-          confirmTarget) {
+      var DialogCtrl = function ($scope, $firebaseObject, selectedBusinesses,
+                                 businesses, confirmTarget) {
         var createProductJson = function () {
           return {
             'mitbbsId': $scope.mitbbsId,
