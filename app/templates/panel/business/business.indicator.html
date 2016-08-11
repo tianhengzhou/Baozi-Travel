@@ -14,12 +14,15 @@
     </g>
     <g path-group>
         <path id="delivery" class="progress-bar inner-bar normal"
+              percentage="{{deliveryCount/ expected}}"
               stroke-linejoin="round"
               delivery-path/>
         <path id="pay" class="progress-bar inner-bar normal"
+              percentage="{{paidCount/ expected}}"
               stroke-linejoin="round"
               paid-path />
-        <path id="general" class="progress-bar outer-bar"
+        <path id="general" percentage="{{submitCount/ expected}}"
+              class="progress-bar outer-bar"
               stroke-linejoin="round"
               general-path />
     </g>

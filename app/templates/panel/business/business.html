@@ -60,9 +60,8 @@
                 </tr>
             </thead>
             <tbody md-body>
-            <tr md-row md-select="business" md-on-select="logItem"
-                md-auto-select
-                ng-repeat="business in businesses">
+            <tr md-row md-select="business" md-auto-select
+                ng-repeat="business in businesses | orderBy: query.order">
                 <td md-cell>{{business.mitbbsId}}</td>
                 <td md-cell>{{business.product}}</td>
                 <td md-cell>$ {{business.price  | number: 2}}</td>

@@ -107,11 +107,14 @@ angular.module('baoziApp')
       restrict: 'A',
       transclude: true,
       requires: '^pathGroup',
+      scope: {
+        percentage: '@'
+      },
       link: function(scope, element){
         var arc = d3.select(element[0]),
-            arcObject = scope.drawArc(),
-            percentage = scope.deliveryCount / scope.expected,
-            innerArc = scope.getArcInfo(1.1, percentage, scope.radius, 0.05),
+            arcObject = scope.$parent.drawArc(),
+            innerArc = scope.$parent.getArcInfo(
+              1.1, scope.percentage, scope.$parent.radius, 0.05),
             end = innerArc.endAngle;
         innerArc.endAngle = 0;
         arc
@@ -120,10 +123,35 @@ angular.module('baoziApp')
           .transition()
           .delay(100)
           .duration(2000)
-          .attrTween("d", scope.tweenArc({
+          .attrTween("d", scope.$parent.tweenArc({
             endAngle: end
           }, arcObject));
-        element.addClass(scope.pathColor(percentage));
+        var classList;
+        scope.$watch('percentage', function () {
+          var classList = element.attr('class').split(/\s+/);
+          arc
+            .transition()
+            .delay(100)
+            .duration(2000)
+            .attrTween("d", scope.$parent.tweenArc({
+              endAngle: (360*scope.percentage)*(Math.PI/180)
+            }, arcObject));
+          if (classList.indexOf('green') == -1 &&
+            classList.indexOf('red') == -1 && classList.indexOf('orange') ){
+            element.addClass(scope.$parent.pathColor(scope.percentage));
+          }else{
+            if (classList.indexOf('green') > -1){
+              element.removeClass('green')
+            }
+            if (classList.indexOf('red') > -1){
+              element.removeClass('red')
+            }
+            if (classList.indexOf('orange') > -1){
+              element.removeClass('orange')
+            }
+            element.addClass(scope.$parent.pathColor(scope.percentage));
+          }
+        });
       }
     };
   })
@@ -132,11 +160,14 @@ angular.module('baoziApp')
       restrict: 'A',
       transclude: true,
       requires: '^pathGroup',
+      scope: {
+        percentage: '@'
+      },
       link: function(scope, element){
         var arc = d3.select(element[0]),
-            arcObject = scope.drawArc(),
-            percentage = scope.paidCount / scope.expected,
-            innerArc = scope.getArcInfo(1.2, percentage, scope.radius, 0.1),
+            arcObject = scope.$parent.drawArc(),
+            innerArc = scope.$parent.getArcInfo(
+              1.2, scope.percentage, scope.$parent.radius, 0.1),
             end = innerArc.endAngle;
         innerArc.endAngle = 0;
         arc
@@ -145,10 +176,34 @@ angular.module('baoziApp')
           .transition()
           .delay(100)
           .duration(2000)
-          .attrTween("d", scope.tweenArc({
+          .attrTween("d", scope.$parent.tweenArc({
             endAngle: end
           }, arcObject));
-        element.addClass(scope.pathColor(percentage));
+        scope.$watch('percentage', function () {
+          var classList = element.attr('class').split(/\s+/);
+          arc
+            .transition()
+            .delay(100)
+            .duration(2000)
+            .attrTween("d", scope.$parent.tweenArc({
+              endAngle: (360*scope.percentage)*(Math.PI/180)
+            }, arcObject));
+          if (classList.indexOf('green') == -1 &&
+            classList.indexOf('red') == -1 && classList.indexOf('orange') ){
+            element.addClass(scope.$parent.pathColor(scope.percentage));
+          }else{
+            if (classList.indexOf('green') > -1){
+              element.removeClass('green')
+            }
+            if (classList.indexOf('red') > -1){
+              element.removeClass('red')
+            }
+            if (classList.indexOf('orange') > -1){
+              element.removeClass('orange')
+            }
+            element.addClass(scope.$parent.pathColor(scope.percentage));
+          }
+        });
       }
     };
   })
@@ -157,14 +212,15 @@ angular.module('baoziApp')
       restrict: 'A',
       transclude: true,
       requires: '^pathGroup',
+      scope: {
+        percentage: '@'
+      },
       link: function(scope, element){
         var arc = d3.select(element[0]),
-            arcObject = scope.drawArc(),
-            percentage = scope.submitCount / scope.expected,
-            innerArc = scope.getArcInfo(1.3, percentage, scope.radius, 0.15),
+            arcObject = scope.$parent.drawArc(),
+            innerArc = scope.$parent.getArcInfo(
+              1.3, scope.percentage, scope.$parent.radius, 0.15),
             end = innerArc.endAngle;
-        scope.percentage = scope.submitCount / scope.expected;
-        console.log(percentage);
         innerArc.endAngle = 0;
         arc
           .datum(innerArc)
@@ -172,20 +228,35 @@ angular.module('baoziApp')
           .transition()
           .delay(100)
           .duration(2000)
-          .attrTween("d", scope.tweenArc({
+          .attrTween("d", scope.$parent.tweenArc({
             endAngle: end
           }, arcObject));
-        element.addClass(scope.pathColor(percentage));
-        // scope.$watch('percentage', function () {
-        //   console.log('toal increase');
-        //   arc
-        //     .transition()
-        //     .delay(100)
-        //     .duration(2000)
-        //     .attrTween("d", scope.tweenArc({
-        //       endAngle: (360*percentage)*(Math.PI/180)
-        //     }, arcObject));
-        // });
+        scope.$watch('percentage', function () {
+          var classList = element.attr('class').split(/\s+/);
+
+          arc
+            .transition()
+            .delay(100)
+            .duration(2000)
+            .attrTween("d", scope.$parent.tweenArc({
+              endAngle: (360*scope.percentage)*(Math.PI/180)
+            }, arcObject));
+          if (classList.indexOf('green') == -1 &&
+            classList.indexOf('red') == -1 && classList.indexOf('orange') ){
+            element.addClass(scope.$parent.pathColor(scope.percentage));
+          }else{
+            if (classList.indexOf('green') > -1){
+              element.removeClass('green')
+            }
+            if (classList.indexOf('red') > -1){
+              element.removeClass('red')
+            }
+            if (classList.indexOf('orange') > -1){
+              element.removeClass('orange')
+            }
+            element.addClass(scope.$parent.pathColor(scope.percentage));
+          }
+        });
       }
     };
   });

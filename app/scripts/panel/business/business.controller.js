@@ -6,7 +6,6 @@ angular.module('baoziApp')
     .controller('BusinessCtrl', function($scope, $mdDialog, $firebaseObject,
                                          $mdMedia, $firebaseArray, profile,
                                          businesses, methods, products){
-      console.log(products[0].product_name);
       var authorizeRef = firebase.database().ref();
       var businessCtrl = this;
       $scope.query = {
@@ -17,9 +16,9 @@ angular.module('baoziApp')
       };
       $scope.businesses = businesses;
       $scope.selected = [];
-      $scope.logItem = function (item) {
-        console.log(item.$id, 'was selected');
-      };
+      // $scope.logItem = function (item) {
+      //   console.debug(item.$id, 'was selected');
+      // };
       var obj = $firebaseObject(authorizeRef.child('isDisabled'));
       obj.$bindTo($scope, 'isDisabled').then(function () {
         $scope.status = $scope.isDisabled.$value;

@@ -78,10 +78,10 @@
             componentRestrictions: {}
           };
           scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
-          console.log(scope.gPlace);
+          console.debug(scope.gPlace);
           scope.gPlace.addListener('place_changed', function () {
             var geoComponents = scope.gPlace.getPlace();
-            console.log(geoComponents);
+            console.debug(geoComponents);
             var lat = geoComponents.geometry.location.lat();
             var lng = geoComponents.geometry.location.lng();
             var detailLoc = [];
