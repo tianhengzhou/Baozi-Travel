@@ -160,6 +160,9 @@ angular
               console.error(error);
               $state.go('home');
             });
+          },
+          businesses: function (Businesses) {
+            return Businesses.forBusiness().$loaded();
           }
         }
       })

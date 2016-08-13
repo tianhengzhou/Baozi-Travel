@@ -2,13 +2,14 @@
      class="bao-sidenav" >
     <md-sidenav
       class="md-sidenav-left md-whiteframe-z2 mdl-color--blue-grey-800"
-      md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+      md-component-id="left">
       <md-toolbar class="bao-sidenav-header mdl-color--blue-grey-900">
-        <img
-          ng-src="http://www.gravatar.com/avatar/{{emailHash}}?d=identicon"
-          class="bao-avatar">
-        <h1 class="md-toolbar-tools">{{name}}</h1>
-        <md-button ng-click="logout()">Logout</md-button>
+        <span class="md-toolbar-tools" style="text-align: center">
+            {{name}}</span>
+        <md-button ng-click="logout()">
+            <i class="fa fa-power-off" aria-hidden="true"></i>
+            Logout
+        </md-button>
       </md-toolbar>
       <ul style="list-style: none;padding-left:0;">
         <menu-link></menu-link>

@@ -1,16 +1,15 @@
 
     <md-toolbar class="md-primary md-hue-1 bao-boxshadow" ng-controller="NavbarController">
       <div class="md-toolbar-tools">
-        <md-button ng-click="$mdSidenav('left').toggle()" hide-gt-md="" class="md-icon-button" aria-label="Settings">
+        <md-button ng-click="$mdSidenav('left').toggle()" class="md-icon-button" aria-label="Settings">
           <md-icon class="material-icons">menu</md-icon>
         </md-button>
         <h2>
           <span>Baozi Travel</span>
         </h2>
         <span flex=""></span>
-        <md-button class="md-icon-button" aria-label="More">
-          <md-icon class="material-icons">more_vert</md-icon>
-        </md-button>
+        <img ng-src="http://www.gravatar.com/avatar/{{emailHash}}?d=identicon"
+                class="bao-avatar">
       </div>
     </md-toolbar>
 
