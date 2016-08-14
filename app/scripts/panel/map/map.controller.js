@@ -11,5 +11,8 @@ angular.module('baoziApp')
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 mapTypeControl: false
             };
-
+        $scope.map = {
+          center: myLatlng,
+          zoom: 8
+        }
     });

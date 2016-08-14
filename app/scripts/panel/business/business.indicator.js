@@ -119,13 +119,7 @@ angular.module('baoziApp')
         innerArc.endAngle = 0;
         arc
           .datum(innerArc)
-          .attr('d', arcObject)
-          .transition()
-          .delay(100)
-          .duration(2000)
-          .attrTween("d", scope.$parent.tweenArc({
-            endAngle: end
-          }, arcObject));
+          .attr('d', arcObject);
         var classList;
         scope.$watch('percentage', function () {
           var classList = element.attr('class').split(/\s+/);
@@ -172,13 +166,7 @@ angular.module('baoziApp')
         innerArc.endAngle = 0;
         arc
           .datum(innerArc)
-          .attr('d', arcObject)
-          .transition()
-          .delay(100)
-          .duration(2000)
-          .attrTween("d", scope.$parent.tweenArc({
-            endAngle: end
-          }, arcObject));
+          .attr('d', arcObject);
         scope.$watch('percentage', function () {
           var classList = element.attr('class').split(/\s+/);
           arc
@@ -224,13 +212,7 @@ angular.module('baoziApp')
         innerArc.endAngle = 0;
         arc
           .datum(innerArc)
-          .attr('d', arcObject)
-          .transition()
-          .delay(100)
-          .duration(2000)
-          .attrTween("d", scope.$parent.tweenArc({
-            endAngle: end
-          }, arcObject));
+          .attr('d', arcObject);
         scope.$watch('percentage', function () {
           var classList = element.attr('class').split(/\s+/);
 

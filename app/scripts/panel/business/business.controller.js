@@ -43,6 +43,7 @@ angular.module('baoziApp')
             'price': $scope.price,
             'quantity': $scope.quantity,
             'location': $scope.location,
+            'detailLoc': $scope.detailLoc,
             'zipCode': $scope.zipCode,
             'paymentMethod': $scope.paymentMethod,
             'paid': false,

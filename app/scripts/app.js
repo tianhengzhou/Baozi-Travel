@@ -16,7 +16,8 @@ angular
     'angular-md5',
     'firebase',
     'ui.router',
-    'md.data.table'
+    'md.data.table',
+    'uiGmapgoogle-maps'
   ])
   .config(function () {
     var config = {
