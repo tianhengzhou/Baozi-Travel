@@ -1,2 +1,16 @@
-<ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+    <ui-gmap-markers models="markers" coords="'self'" icon="'icon'"
+                     click="onClicked">
+        <ui-gmap-windows  show="'showWindow'" closeClick="'closeClick'">
+            <div >
+                <p ng-non-bindable>Mitbbs ID: {{ mitbbsId }}</p>
+                <p ng-non-bindable>Product name: {{ product }}</p>
+                <p ng-non-bindable>Product Quantity: {{ quantity }}</p>
+                <p ng-non-bindable>Location: {{ location }}</p>
+            </div>
+
+        </ui-gmap-windows>
+    </ui-gmap-markers>
+
+</ui-gmap-google-map>
 
