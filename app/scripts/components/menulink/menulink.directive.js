@@ -10,12 +10,12 @@ angular.module('baoziApp')
         icon: '&#xE55B;',
         awesome_icon: 'fa fa-user'
       },
-      // {
-      //   name: 'Food Map',
-      //   link: 'panel.map',
-      //   icon: '&#xE55B;',
-      //   awesome_icon: 'fa fa-cutlery'
-      // },
+      {
+        name: 'Inventory Map',
+        link: 'panel.map',
+        icon: '&#xE55B;',
+        awesome_icon: 'fa fa-map'
+      },
       // {
       //   name: 'Meet Up',
       //   link: 'panel.meetup',
