@@ -226,8 +226,8 @@ angular
       })
       .state('panel.blog', {
         url: '/blog',
-        templateUrl: 'templates/panel/chat/blog.html',
-        controller: 'PanelCtrl as panel',
+        templateUrl: 'templates/panel/blog/blog.html',
+        controller: 'BlogCtrl as blogCtrl',
         parent: 'panel'
       })
       .state('panel.profile', {
