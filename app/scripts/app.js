@@ -228,7 +228,26 @@ angular
         url: '/blog',
         templateUrl: 'templates/panel/blog/blog.html',
         controller: 'BlogCtrl as blogCtrl',
-        parent: 'panel'
+        parent: 'panel',
+        resolve:{
+          profile: function ($state, Auth, Users) {
+            return Auth.$requireSignIn().then(function (firebaseUser) {
+              return Users.getProfile(firebaseUser.uid).$loaded().then(function (profile) {
+                if (profile.displayName){
+                  return profile;
+                }else{
+                  $state.go('panel.profile');
+                }
+              });
+            }, function (error) {
+              console.error(error);
+              $state.go('home');
+            });
+          },
+          blogs: function (Blogs) {
+            return Blogs.forBlog().$loaded();
+          }
+        }
       })
       .state('panel.profile', {
         url: '/profile',

@@ -47,4 +47,11 @@ angular.module('baoziApp')
           authCtrl.error = error;
         });
       };
+      authCtrl.resetPassword = function () {
+        Auth.$sendPasswordResetEmail(authCtrl.user.email).then(function () {
+          console.log('Password reset email send successfully!');
+        }).catch(function (error) {
+          console.error('Error: ', error);
+        })
+      }
   });
