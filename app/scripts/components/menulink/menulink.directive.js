@@ -28,12 +28,12 @@ angular.module('baoziApp')
         icon: '&#xEB3F;',
         awesome_icon: 'fa fa-briefcase'
       },
-      // {
-      //   name: 'Travel Blog',
-      //   link: 'panel.blog',
-      //   icon: '&#xE87A;',
-      //   awesome_icon: 'fa fa-suitcase'
-      // },
+      {
+        name: 'Blog',
+        link: 'panel.blog',
+        icon: '&#xE87A;',
+        awesome_icon: 'fa fa-pencil'
+      },
       {
         name: 'Happy Chat',
         link: 'panel.chat',

@@ -1,1 +1,40 @@
+<div layout="row" layout-padding layout-margin>
+    <md-button class="md-primary md-raised"
+               ng-click="blogCtrl.showDialogPost($event)">
+        Create a post</md-button>
+</div>
+<!--<span>{{businesses.sum()}}</span>-->
+<div layout="row">
+    <md-card ng-repeat="(key, value) in businesses.sum()">
+        <span>{{key}}</span>
+        <indicator-donut class="widget-container"
+                         expected="100"
+                         submit-count="{{value}}"
+                         paid-count="{{businesses.sumP()[key]}}"
+                         delivery-count="{{businesses.sumD()[key]}}"
+        ></indicator-donut>
+    </md-card>
+</div>
+<md-content>
+    <md-tabs md-stretch-tabs="auto">
+        <md-tab ng-repeat="type in blogCtrl.types">
+            <md-tab-label>{{type}}</md-tab-label>
+            <md-tab-body>Item #1</md-tab-body>
+        </md-tab>
+    </md-tabs>
+</md-content>
+
+<md-card ng-repeat="blog in blogCtrl.blogs">
+    <md-card-avatar>
+        <img ng-src="http://www.gravatar.com/avatar/{{blog.createBy.emailHash}}?d=identicon"
+                alt="user avatar" style="border-radius: 50%">
+    </md-card-avatar>
+    <md-card-header-text>
+        <span class="md-title">{{blog.title}}</span>
+        <span class="md-subhead">{{blog.createDate}}</span>
+    </md-card-header-text>
+    <md-card-content>
+        <p>{{blog.content | limitTo: 30}}</p>
+    </md-card-content>
+</md-card>
 
