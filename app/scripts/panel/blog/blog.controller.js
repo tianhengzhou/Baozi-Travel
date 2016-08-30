@@ -7,10 +7,10 @@
 "use strict";
 angular.module('baoziApp')
   .controller('BlogCtrl', function($scope, $mdDialog, $firebaseObject, $mdMedia,
-                                   profile, blogs, Blogs){
+                                   profile, Blogs){
     var blogCtrl = this;
-    blogCtrl.blogs = blogs;
-    console.log(blogCtrl.blogs);
+    blogCtrl.blogs = '';
+    // console.log(blogCtrl.blogs);
 
     blogCtrl.host = profile.displayName;
     var typesCollection = {
@@ -34,6 +34,11 @@ angular.module('baoziApp')
         'Feature Request'
       ]
     };
+    blogCtrl.changeContent = function (type) {
+      Blogs.forBlog(type).$loaded().then(function (blogs) {
+        blogCtrl.blogs = blogs;
+      })
+    };
     blogCtrl.types = Object.keys(typesCollection);
     console.debug(blogCtrl.types);
     var DialogCtrl = function ($scope) {
@@ -54,7 +59,7 @@ angular.module('baoziApp')
       };
       $scope.host= profile.displayName;
       $scope.createPost = function () {
-        Blogs.all.push(createBlogJson());
+        Blogs.all.child($scope.type).push(createBlogJson());
         $mdDialog.hide();
       };
       $scope.subtypeChooser = function (type) {

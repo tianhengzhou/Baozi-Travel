@@ -17,9 +17,14 @@
 </div>
 <md-content>
     <md-tabs md-stretch-tabs="auto">
-        <md-tab ng-repeat="type in blogCtrl.types">
-            <md-tab-label>{{type}}</md-tab-label>
-            <md-tab-body>Item #1</md-tab-body>
+        <md-tab ng-repeat="type in blogCtrl.types" label="{{type}}" ng-click="blogCtrl.changeContent(type)">
+            <md-content>
+                <div ng-repeat="blog in blogCtrl.blogs">
+                    <h1>{{blog.title}}</h1>
+                    <span>Author: {{blog.createBy}}</span>
+                    <p>{{blog.content}}</p>
+                </div>
+            </md-content>
         </md-tab>
     </md-tabs>
 </md-content>

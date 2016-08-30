@@ -243,9 +243,6 @@ angular
               console.error(error);
               $state.go('home');
             });
-          },
-          blogs: function (Blogs) {
-            return Blogs.forBlog().$loaded();
           }
         }
       })

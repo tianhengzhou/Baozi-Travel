@@ -6,8 +6,8 @@ angular.module('baoziApp')
   .factory('Blogs', function ($firebaseArray) {
     var blogRef = firebase.database().ref().child('blogs');
     return {
-      forBlog: function () {
-        return $firebaseArray(blogRef);
+      forBlog: function (type) {
+        return $firebaseArray(blogRef.child(type));
       },
       all: blogRef
     };
