@@ -17,7 +17,8 @@ angular
     'firebase',
     'ui.router',
     'md.data.table',
-    'uiGmapgoogle-maps'
+    'uiGmapgoogle-maps',
+    'hc.marked'
   ])
   .config(function () {
     var config = {
@@ -28,6 +29,19 @@ angular
     };
     firebase.initializeApp(config);
   })
+  .config(['markedProvider', function (markedProvider) {
+    markedProvider.setOptions({
+      gfm: true,
+      tables: true,
+      highlight: function (code, lang) {
+        if (lang) {
+          return hljs.highlight(lang, code, true).value;
+        } else {
+          return hljs.highlightAuto(code).value;
+        }
+      }
+    });
+  }])
   .run(function ($rootScope, $state) {
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
       event.preventDefault();

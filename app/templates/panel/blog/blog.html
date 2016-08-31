@@ -1,45 +1,30 @@
 <div layout="row" layout-padding layout-margin>
     <md-button class="md-primary md-raised"
-               ng-click="blogCtrl.showDialogPost($event)">
+               ng-click="blogCtrl.showDialogAddPost($event)">
         Create a post</md-button>
 </div>
-<!--<span>{{businesses.sum()}}</span>-->
-<div layout="row">
-    <md-card ng-repeat="(key, value) in businesses.sum()">
-        <span>{{key}}</span>
-        <indicator-donut class="widget-container"
-                         expected="100"
-                         submit-count="{{value}}"
-                         paid-count="{{businesses.sumP()[key]}}"
-                         delivery-count="{{businesses.sumD()[key]}}"
-        ></indicator-donut>
-    </md-card>
-</div>
 <md-content>
-    <md-tabs md-stretch-tabs="auto">
-        <md-tab ng-repeat="type in blogCtrl.types" label="{{type}}" ng-click="blogCtrl.changeContent(type)">
-            <md-content>
-                <div ng-repeat="blog in blogCtrl.blogs">
-                    <h1>{{blog.title}}</h1>
-                    <span>Author: {{blog.createBy}}</span>
-                    <p>{{blog.content}}</p>
-                </div>
-            </md-content>
+    <md-tabs md-stretch-tabs="auto" md-dynamic-height>
+        <md-tab ng-repeat="type in blogCtrl.types" label="{{type}}"
+                ng-click="blogCtrl.changeContent(type)">
+            <md-list ng-repeat="blog in blogCtrl.blogs">
+                <md-list-item class="md-3-line md-long-text">
+                    <div class="md-list-item-text">
+                        <h3>{{blog.title}}</h3>
+                        <span>Author: {{blog.createBy}}</span>
+                        <md-button
+                                ng-if="blog.createBy === blogCtrl.profile.displayName"
+                                ng-click="blogCtrl.showDialogEditPost($event, blog)">
+                            Edit Post
+                        </md-button>
+                        <div marked="blog.content">
+                        </div>
+                    </div>
+                </md-list-item>
+                <md-divider ></md-divider>
+            </md-list>
         </md-tab>
     </md-tabs>
 </md-content>
 
-<md-card ng-repeat="blog in blogCtrl.blogs">
-    <md-card-avatar>
-        <img ng-src="http://www.gravatar.com/avatar/{{blog.createBy.emailHash}}?d=identicon"
-                alt="user avatar" style="border-radius: 50%">
-    </md-card-avatar>
-    <md-card-header-text>
-        <span class="md-title">{{blog.title}}</span>
-        <span class="md-subhead">{{blog.createDate}}</span>
-    </md-card-header-text>
-    <md-card-content>
-        <p>{{blog.content | limitTo: 30}}</p>
-    </md-card-content>
-</md-card>
 

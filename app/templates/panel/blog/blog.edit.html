@@ -22,32 +22,6 @@
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <label>Types</label>
-                    <md-select name="type" ng-model="type"
-                               required>
-                        <md-option ng-repeat="type in types"
-                                   value="{{type}}"
-                                   ng-click="subtypeChooser(type)">{{type
-                            }}</md-option>
-                    </md-select>
-                    <div ng-messages="eventForm.type.$error">
-                        <div ng-message="required">The type is required.
-                        </div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>Subtypes</label>
-                    <md-select name="subtype" ng-model="subtype"
-                    required>
-                    <md-option ng-repeat="subtype in subtypes"
-                    value="{{subtype}}">{{subtype}}</md-option>
-                    </md-select>
-                    <div ng-messages="eventForm.type.$error">
-                        <div ng-message="required">The type is required.
-                        </div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-block">
                     <label>
                         Description
                     </label>
@@ -59,5 +33,5 @@
         </md-dialog-content>
     </form>
     <md-button class="md-raised md-primary"
-               ng-click="createPost()">Create Blog Post</md-button>
+               ng-click="updatePost()">Create Blog Post</md-button>
 </md-dialog>

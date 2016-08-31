@@ -10,6 +10,7 @@ angular.module('baoziApp')
                                    profile, Blogs){
     var blogCtrl = this;
     blogCtrl.blogs = '';
+    blogCtrl.profile = profile;
     // console.log(blogCtrl.blogs);
 
     blogCtrl.host = profile.displayName;
@@ -35,13 +36,25 @@ angular.module('baoziApp')
       ]
     };
     blogCtrl.changeContent = function (type) {
-      Blogs.forBlog(type).$loaded().then(function (blogs) {
-        blogCtrl.blogs = blogs;
+      Blogs.forBlog(type.replace(' ', '').toLowerCase()).$loaded().then(
+        function (blogs) {
+          blogCtrl.blogs = blogs;
       })
     };
+    function loadContent(){
+      Blogs.forBlog('mainthread').$loaded().then(
+        function (blogs) {
+          blogCtrl.blogs = blogs;
+          console.log(blogCtrl.blogs);
+        })
+    }
+    loadContent();
     blogCtrl.types = Object.keys(typesCollection);
     console.debug(blogCtrl.types);
-    var DialogCtrl = function ($scope) {
+    var DialogCtrl = function ($scope, types, typesCollection, post) {
+      $scope.types = types;
+      $scope.title = post !== '' ? post.title : $scope.title;
+      $scope.content = post !== '' ? post.content : $scope.content;
       var createBlogJson = function () {
         var content = (typeof $scope.content === 'undefined') ?
           '' : $scope.content;
@@ -51,7 +64,7 @@ angular.module('baoziApp')
           'subtype': $scope.subtype,
           'content': content,
           'createDate': (new Date()).getTime(),
-          'createBy': profile
+          'createBy': profile.displayName
         };
       };
       $scope.cancel = function () {
@@ -59,14 +72,38 @@ angular.module('baoziApp')
       };
       $scope.host= profile.displayName;
       $scope.createPost = function () {
-        Blogs.all.child($scope.type).push(createBlogJson());
+        console.log($scope.type.replace(' ', '').toLowerCase());
+        Blogs.all.child($scope.type.replace(' ', '').toLowerCase()).push(createBlogJson());
+        $mdDialog.hide();
+      };
+      $scope.updatePost = function () {
+        console.log(post);
+        post.title = $scope.title;
+        post.content = $scope.content;
+        blogCtrl.blogs.$save(post);
         $mdDialog.hide();
       };
       $scope.subtypeChooser = function (type) {
-        return $scope.typesCollection[type];
+        $scope.subtypes = typesCollection[type];
       };
     };
-    blogCtrl.showDialogPost = function (event) {
+    blogCtrl.showDialogEditPost = function (event, post) {
+      var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+      $mdDialog.show({
+        controller: DialogCtrl,
+        templateUrl: 'templates/panel/blog/blog.edit.html',
+        parent: angular.element(document.body),
+        targetEvent: event,
+        clickOutsideToClose: true,
+        locals: {
+          types: blogCtrl.types,
+          typesCollection: typesCollection,
+          post: post
+        },
+        fullscreen: useFullScreen
+      });
+    };
+    blogCtrl.showDialogAddPost = function (event) {
       var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
       $mdDialog.show({
         controller: DialogCtrl,
@@ -74,6 +111,11 @@ angular.module('baoziApp')
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose: true,
+        locals: {
+          types: blogCtrl.types,
+          typesCollection: typesCollection,
+          post: ''
+        },
         fullscreen: useFullScreen
       });
     };
