@@ -3,8 +3,8 @@
  */
 "use strict";
 angular.module('baoziApp')
-    .controller('BusinessCtrl', function($scope, $mdDialog, $firebaseObject,
-                                         $mdMedia, $firebaseArray, profile,
+    .controller('BusinessCtrl', function($element, $scope, $mdDialog, $firebaseObject,
+                                         $mdMedia, $firebaseArray, $window, profile,
                                          businesses, methods, products){
       var authorizeRef = firebase.database().ref();
       var businessCtrl = this;
@@ -120,6 +120,12 @@ angular.module('baoziApp')
               $scope.secret)).$loaded().then(success, error);
         };
       };
+      function onResize() {
+        businessCtrl.listStyle.height = ($window.innerHeight * 0.6) + 'px';
+        if (!$scope.$root.$$phase){
+          $scope.$digest();
+        }
+      }
       businessCtrl.showDialogInventory = function (event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         $mdDialog.show({
@@ -172,4 +178,24 @@ angular.module('baoziApp')
           fullscreen: useFullScreen
         });
       };
+      businessCtrl.createDummyData = function (amount) {
+        for (var i = 0; i < amount; i++){
+          businesses.$add({
+            'mitbbsId': 'DummyID',
+            'product': 'Dummy IPad',
+            'price': '100',
+            'quantity': 1,
+            'location': 'Dummy Place',
+            'detailLoc': [-79.893168 + Math.random()*10, 177.177594 + Math.random()*10],
+            'zipCode': '00000',
+            'paymentMethod': 'Dummy method',
+            'paid': false,
+            'delivered': false
+          });
+        }
+      };
+      businessCtrl.listStyle = {
+        height: ($window.innerHeight * 0.6) + 'px'
+      };
+      $window.addEventListener('resize', onResize);
     });

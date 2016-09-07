@@ -3,6 +3,8 @@
                ng-click="businessCtrl.showDialogInventory($event)"
                ng-disabled="isDisabled.$value">
         提交入库</md-button>
+    <md-button class="md-primary md-raised" ng-disabled="!(isadmin)"
+               ng-click="businessCtrl.createDummyData(1000)">Create 1000 entries dummy data</md-button>
     <md-button class="md-primary md-raised" ng-disabled="!(isadmin || isshenyi)"
                ng-click="businessCtrl.showDialogAddProduct($event)">
         添加产品种类</md-button>
@@ -38,6 +40,8 @@
             <span flex=""></span>
         </div>
     </md-toolbar>
+    <md-virtual-repeat-container  ng-style="businessCtrl.listStyle">
+
     <md-table-container>
         <table md-table md-row-select multiple ng-model="selected"
                md-progress="businessCtrl.businesses">
@@ -60,20 +64,22 @@
                 </tr>
             </thead>
             <tbody md-body>
-            <tr md-row md-select="business" md-auto-select
-                ng-repeat="business in businesses | orderBy: query.order">
-                <td md-cell>{{business.mitbbsId}}</td>
-                <td md-cell>{{business.product}}</td>
-                <td md-cell>$ {{business.price  | number: 2}}</td>
-                <td md-cell>{{business.quantity}}</td>
-                <td md-cell>$ {{business.price * business.quantity | number: 2}}</td>
-                <td md-cell>{{business.location}}</td>
-                <td md-cell>{{business.zipCode}}</td>
-                <td md-cell>{{business.paymentMethod}}</td>
-                <td md-cell>{{business.paid}}</td>
-                <td md-cell>{{business.delivered}}</td>
-            </tr>
+                <tr md-row md-select="business" md-auto-select class="repeated-item"
+                    md-virtual-repeat="business in businesses | orderBy: query.order">
+                    <td md-cell>{{business.mitbbsId}}</td>
+                    <td md-cell>{{business.product}}</td>
+                    <td md-cell>$ {{business.price  | number: 2}}</td>
+                    <td md-cell>{{business.quantity}}</td>
+                    <td md-cell>$ {{business.price * business.quantity | number: 2}}</td>
+                    <td md-cell>{{business.location}}</td>
+                    <td md-cell>{{business.zipCode}}</td>
+                    <td md-cell>{{business.paymentMethod}}</td>
+                    <td md-cell>{{business.paid}}</td>
+                    <td md-cell>{{business.delivered}}</td>
+                </tr>
             </tbody>
         </table>
     </md-table-container>
+    </md-virtual-repeat-container>
+
 </md-card>
