@@ -1,0 +1,30 @@
+<div layout="row" layout-padding layout-margin>
+    <md-button class="md-primary md-raised"
+               ng-click="blogCtrl.showDialogAddPost($event)">
+        Create a post</md-button>
+</div>
+<md-content>
+    <md-tabs md-stretch-tabs="auto" md-dynamic-height>
+        <md-tab ng-repeat="type in blogCtrl.types" label="{{type}}"
+                ng-click="blogCtrl.changeContent(type)">
+            <md-list ng-repeat="blog in blogCtrl.blogs">
+                <md-list-item class="md-3-line md-long-text">
+                    <div class="md-list-item-text">
+                        <h3>{{blog.title}}</h3>
+                        <span>Author: {{blog.createBy}}</span>
+                        <md-button
+                                ng-if="blog.createBy === blogCtrl.profile.displayName"
+                                ng-click="blogCtrl.showDialogEditPost($event, blog)">
+                            Edit Post
+                        </md-button>
+                        <div marked="blog.content">
+                        </div>
+                    </div>
+                </md-list-item>
+                <md-divider ></md-divider>
+            </md-list>
+        </md-tab>
+    </md-tabs>
+</md-content>
+
+

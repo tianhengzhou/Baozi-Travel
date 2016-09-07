@@ -67,8 +67,8 @@
   ga('send', 'pageview');
 </script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="scripts/vendor-da79ae5001.js"></script>
-<script src="scripts/app-712e4f7b94.js"></script>
+<script src="scripts/vendor-f4e97a0f5f.js"></script>
+<script src="scripts/app-b9f7b8347a.js"></script>
 <script>
   angular.module('baoziApp')
     .directive('googleplace', function () {
@@ -80,15 +80,17 @@
             componentRestrictions: {}
           };
           scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
+          console.debug(element[0]);
           console.debug(scope.gPlace);
           scope.gPlace.addListener('place_changed', function () {
             var geoComponents = scope.gPlace.getPlace();
             console.debug(geoComponents);
-            var lat = geoComponents.geometry.location.lat();
-            var lng = geoComponents.geometry.location.lng();
-            var detailLoc = [];
-            detailLoc.push(lat, lng);
-            scope.detailLoc = detailLoc;
+            if (typeof geoComponents.geometry === 'undefined'){
+              scope.detailLoc = [44.9, -123.03]
+            }else{
+              scope.detailLoc = [].push(geoComponents.geometry.location.lat(),
+                      geoComponents.geometry.location.lng());
+            }
             scope.$apply(function () {
               model.$setViewValue(element.val());
             });

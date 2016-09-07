@@ -1,0 +1,37 @@
+<md-dialog aria-label="Create Blog Post" ng-cloak="">
+    <form name="eventForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Create Blog Post</h2>
+                <span flex=""></span>
+                <md-button class="md-icon-button"
+                           ng-click="cancel()">
+                    <i class="material-icons" aria-label="Close">&#xE5C9;</i>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout="column" class="md-inline-form md-dialog-content"
+                 layout-padding="">
+                <md-input-container class="md-block">
+                    <label>Title</label>
+                    <input name="title" ng-model="title" required/>
+                    <div ng-messages="eventForm.name.$error"
+                         ng-show="eventForm.name.$touched||eventForm.name.$submitted">
+                        <div ng-message="required">The title is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>
+                        Description
+                    </label>
+                        <textarea name="content"
+                                  ng-model="content"
+                                  rows="4" md-select-on-focus></textarea>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+    </form>
+    <md-button class="md-raised md-primary"
+               ng-click="updatePost()">Create Blog Post</md-button>
+</md-dialog>
