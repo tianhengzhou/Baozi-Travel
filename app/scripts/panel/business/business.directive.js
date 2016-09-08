@@ -4,10 +4,10 @@
 
 "use strict";
 angular.module('baoziApp')
-  .directive('meetupCreate',function () {
-    return {
-      restrict: 'E',
-      replace: true,
-      templateUrl: 'templates/panel/business/business.create.html'
-    };
-  });
+    .directive('businessVirtualList', function () {
+      return {
+        restrict: 'E',
+        require: 'ngModel',
+        templateUrl: 'templates/panel/business/business.virtual.list.html'
+      }
+    });
