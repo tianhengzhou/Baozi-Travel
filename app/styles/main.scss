@@ -128,5 +128,18 @@ html, body {
 .red {
   stroke: $palette-red-500;
 }
-
+business-virtual-list {
+  overflow: auto;
+  display: block;
+  .canvas {
+    position: relative;
+  }
+  tr.renderer{
+    display: block;
+    width:100%;
+    cursor: pointer;
+    position: absolute;
+    line-height: 30px;
+  }
+}
 .angular-google-map-container { height: 100vh }

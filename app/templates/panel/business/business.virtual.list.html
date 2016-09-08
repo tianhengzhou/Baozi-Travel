@@ -1,0 +1,16 @@
+<tbody md-body class="canvas" ng-style="canvasHeight">
+    <tr md-row md-select="business" md-auto-select class="renderer"
+        ng-style="business.styles"
+        ng-repeat="business in visibleProvider | orderBy: query.order">
+        <td md-cell>{{business.mitbbsId}}</td>
+        <td md-cell>{{business.product}}</td>
+        <td md-cell>$ {{business.price  | number: 2}}</td>
+        <td md-cell>{{business.quantity}}</td>
+        <td md-cell>$ {{business.price * business.quantity | number: 2}}</td>
+        <td md-cell>{{business.location}}</td>
+        <td md-cell>{{business.zipCode}}</td>
+        <td md-cell>{{business.paymentMethod}}</td>
+        <td md-cell>{{business.paid}}</td>
+        <td md-cell>{{business.delivered}}</td>
+    </tr>
+</tbody>
