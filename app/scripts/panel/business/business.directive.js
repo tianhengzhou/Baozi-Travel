@@ -4,17 +4,17 @@
 
 "use strict";
 angular.module('baoziApp')
-    .directive('businessVirtualList',[ '$window' ,function ($window) {
+    .directive('businessVirtualList',function () {
       return {
         scope: {
           businessDataProvider: '='
         },
-        restrict: 'E',
-        require: 'ngModel',
+        replace: true,
+        restrict: 'A',
         templateUrl: 'templates/panel/business/business.virtual.list.html',
-        link: function (scope, elem, attrs, ngModelCtrl) {
-          var rowHeight = 20;
-          scope.height = $window.innerHeight * 0.6;
+        link: function (scope, elem) {
+          var rowHeight = 30;
+          scope.height = 200;
           scope.scrollTop = 0;
           scope.visibleProvider = [];
           scope.cellsPerPage = 0;
@@ -25,15 +25,29 @@ angular.module('baoziApp')
             scope.cellsPerPage = Math.round(scope.height / rowHeight);
             scope.numberofCells = 3 * scope.cellsPerPage;
             scope.canvasHeight = {
-              height: ($window.innerHeight * 0.6) + 'px'
+              height: 500 + 'px'
             };
             scope.updateList();
-          }
+          };
           scope.updateList = function () {
             var firstCell = Math.max(
                 Math.floor(scope.scrollTop / rowHeight) - scope.cellsPerPage, 0);
-            var cellsToCreate = Math.min(firstCell + scope.numberofCells, scope.numberofCells);
-          }
+            var cellsToCreate = Math.min(
+              firstCell + scope.numberofCells, scope.numberofCells);
+            scope.visibleProvider = scope.businessDataProvider.slice(
+              firstCell, firstCell + cellsToCreate);
+            for (var i = 0; i < scope.visibleProvider.length;i++){
+              scope.visibleProvider[i].style = {
+                'top': ((firstCell + i))*rowHeight + 'px'
+              };
+            }
+          };
+          scope.onScroll = function () {
+            scope.scrollTop = elem.prop('scrollTop');
+            scope.updateList();
+            scope.$apply();
+          };
+          scope.init();
         }
-      }
-    }]);
+      };
+    });
