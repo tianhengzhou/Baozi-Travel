@@ -1,0 +1,16 @@
+<tbody class="canvas" ng-style="canvasHeight">
+    <tr class="renderer"
+        ng-style="business.styles"
+        ng-repeat="business in visibleProvider | orderBy: query.order">
+        <td>{{business.mitbbsId}}</td>
+        <td>{{business.product}}</td>
+        <td>$ {{business.price  | number: 2}}</td>
+        <td>{{business.quantity}}</td>
+        <td>$ {{business.price * business.quantity | number: 2}}</td>
+        <td>{{business.location}}</td>
+        <td>{{business.zipCode}}</td>
+        <td>{{business.paymentMethod}}</td>
+        <td>{{business.paid}}</td>
+        <td>{{business.delivered}}</td>
+    </tr>
+</tbody>
